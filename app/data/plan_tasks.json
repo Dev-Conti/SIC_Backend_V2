@@ -1,0 +1,1001 @@
+[
+    {
+        "@odata.etag": "W/\"JzEtVGFzayAgQEBAQEBAQEBAQEBAQEBASCc=\"",
+        "planId": "p6g7IIbnbU-whN2bp0R8eGUAA5qT",
+        "bucketId": "Uty9DvelcUeCzHmRXz9GLWUAAcb7",
+        "title": "Implementar a Classe MicrosoftServices",
+        "orderHint": "8584591927443933094Pi",
+        "assigneePriority": "",
+        "percentComplete": 0,
+        "startDateTime": "2025-03-21T10:00:00Z",
+        "createdDateTime": "2025-03-19T19:56:41.1311418Z",
+        "dueDateTime": "2025-03-28T10:00:00Z",
+        "hasDescription": false,
+        "previewType": "automatic",
+        "completedDateTime": null,
+        "referenceCount": 0,
+        "checklistItemCount": 0,
+        "activeChecklistItemCount": 0,
+        "conversationThreadId": null,
+        "priority": 5,
+        "id": "rlziuApgB0GQn4Q9PqN6NGUAIn12",
+        "completedBy": null,
+        "createdBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "appliedCategories": {},
+        "assignments": {
+            "985172b9-4509-42fb-b557-f1323e395580": {
+                "@odata.type": "#microsoft.graph.plannerAssignment",
+                "assignedDateTime": "2025-03-19T19:56:41.1311418Z",
+                "orderHint": "8584591927443933094P-",
+                "assignedBy": {
+                    "application": {
+                        "displayName": null,
+                        "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+                    },
+                    "user": {
+                        "displayName": null,
+                        "id": "985172b9-4509-42fb-b557-f1323e395580"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "@odata.etag": "W/\"JzEtVGFzayAgQEBAQEBAQEBAQEBAQEBAYCc=\"",
+        "planId": "p6g7IIbnbU-whN2bp0R8eGUAA5qT",
+        "bucketId": "SQy7jUf7i0Okkt0Wfv3P_WUAFNxL",
+        "title": "Implementar a Classe FinteraServices",
+        "orderHint": "8584592141281698215Pq",
+        "assigneePriority": "",
+        "percentComplete": 0,
+        "startDateTime": null,
+        "createdDateTime": "2025-03-19T14:00:17.3390181Z",
+        "dueDateTime": "2025-03-25T10:00:00Z",
+        "hasDescription": false,
+        "previewType": "automatic",
+        "completedDateTime": null,
+        "referenceCount": 0,
+        "checklistItemCount": 0,
+        "activeChecklistItemCount": 0,
+        "conversationThreadId": null,
+        "priority": 5,
+        "id": "vO9UajVmBUCOgDI9vLFlzWUACmF8",
+        "completedBy": null,
+        "createdBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "appliedCategories": {},
+        "assignments": {
+            "985172b9-4509-42fb-b557-f1323e395580": {
+                "@odata.type": "#microsoft.graph.plannerAssignment",
+                "assignedDateTime": "2025-03-19T14:00:26.8026287Z",
+                "orderHint": "8584592141187530802Pv",
+                "assignedBy": {
+                    "application": {
+                        "displayName": null,
+                        "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+                    },
+                    "user": {
+                        "displayName": null,
+                        "id": "985172b9-4509-42fb-b557-f1323e395580"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "@odata.etag": "W/\"JzEtVGFzayAgQEBAQEBAQEBAQEBAQEBAYCc=\"",
+        "planId": "p6g7IIbnbU-whN2bp0R8eGUAA5qT",
+        "bucketId": "SQy7jUf7i0Okkt0Wfv3P_WUAFNxL",
+        "title": "Implementar a Classe DeskManagerServices",
+        "orderHint": "8584592141377263373P/",
+        "assigneePriority": "",
+        "percentComplete": 0,
+        "startDateTime": null,
+        "createdDateTime": "2025-03-19T14:00:07.7981177Z",
+        "dueDateTime": "2025-03-25T10:00:00Z",
+        "hasDescription": false,
+        "previewType": "automatic",
+        "completedDateTime": null,
+        "referenceCount": 0,
+        "checklistItemCount": 0,
+        "activeChecklistItemCount": 0,
+        "conversationThreadId": null,
+        "priority": 5,
+        "id": "FoWiTFi89kGdYUnOmHM9YGUALri9",
+        "completedBy": null,
+        "createdBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "appliedCategories": {},
+        "assignments": {
+            "985172b9-4509-42fb-b557-f1323e395580": {
+                "@odata.type": "#microsoft.graph.plannerAssignment",
+                "assignedDateTime": "2025-03-19T14:00:23.1466148Z",
+                "orderHint": "8584592141223622216PY",
+                "assignedBy": {
+                    "application": {
+                        "displayName": null,
+                        "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+                    },
+                    "user": {
+                        "displayName": null,
+                        "id": "985172b9-4509-42fb-b557-f1323e395580"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "@odata.etag": "W/\"JzEtVGFzayAgQEBAQEBAQEBAQEBAQEBAVCc=\"",
+        "planId": "p6g7IIbnbU-whN2bp0R8eGUAA5qT",
+        "bucketId": "VOiJd3xnaUSOOt7eW634PGUADfjP",
+        "title": "Migrar Funcionalidades básicas do v1 para o v2",
+        "orderHint": "8584599082142059430Pt",
+        "assigneePriority": "",
+        "percentComplete": 0,
+        "startDateTime": null,
+        "createdDateTime": "2025-03-11T13:12:11.3497659Z",
+        "dueDateTime": "2025-03-31T10:00:00Z",
+        "hasDescription": false,
+        "previewType": "automatic",
+        "completedDateTime": null,
+        "referenceCount": 0,
+        "checklistItemCount": 0,
+        "activeChecklistItemCount": 0,
+        "conversationThreadId": null,
+        "priority": 5,
+        "id": "ZCLFSgHc_Ey6q4m89CR3RWUAAm_H",
+        "completedBy": null,
+        "createdBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "appliedCategories": {},
+        "assignments": {
+            "985172b9-4509-42fb-b557-f1323e395580": {
+                "@odata.type": "#microsoft.graph.plannerAssignment",
+                "assignedDateTime": "2025-03-11T13:12:11.3497659Z",
+                "orderHint": "8584599082142059430P6",
+                "assignedBy": {
+                    "application": {
+                        "displayName": null,
+                        "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+                    },
+                    "user": {
+                        "displayName": null,
+                        "id": "985172b9-4509-42fb-b557-f1323e395580"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "@odata.etag": "W/\"JzEtVGFzayAgQEBAQEBAQEBAQEBAQEBAXCc=\"",
+        "planId": "p6g7IIbnbU-whN2bp0R8eGUAA5qT",
+        "bucketId": "Uty9DvelcUeCzHmRXz9GLWUAAcb7",
+        "title": "Desenvolver Formação de Preço no SIC integrado com CRM",
+        "orderHint": "8584615263596801835PR",
+        "assigneePriority": "",
+        "percentComplete": 0,
+        "startDateTime": null,
+        "createdDateTime": "2025-02-20T19:43:05.8599019Z",
+        "dueDateTime": "2025-03-31T10:00:00Z",
+        "hasDescription": true,
+        "previewType": "automatic",
+        "completedDateTime": null,
+        "referenceCount": 0,
+        "checklistItemCount": 0,
+        "activeChecklistItemCount": 0,
+        "conversationThreadId": null,
+        "priority": 5,
+        "id": "1ctal5B-t0SEAImmXCbQlmUALUn1",
+        "completedBy": null,
+        "createdBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "appliedCategories": {},
+        "assignments": {
+            "985172b9-4509-42fb-b557-f1323e395580": {
+                "@odata.type": "#microsoft.graph.plannerAssignment",
+                "assignedDateTime": "2025-02-20T19:43:05.8599019Z",
+                "orderHint": "8584615263596801835PA",
+                "assignedBy": {
+                    "application": {
+                        "displayName": null,
+                        "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+                    },
+                    "user": {
+                        "displayName": null,
+                        "id": "985172b9-4509-42fb-b557-f1323e395580"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "@odata.etag": "W/\"JzEtVGFzayAgQEBAQEBAQEBAQEBAQEBATCc=\"",
+        "planId": "p6g7IIbnbU-whN2bp0R8eGUAA5qT",
+        "bucketId": "SQy7jUf7i0Okkt0Wfv3P_WUAFNxL",
+        "title": "Desenvolver Proposta Comercial no SIC integrado com CRM",
+        "orderHint": "8584615263953933804P-",
+        "assigneePriority": "",
+        "percentComplete": 0,
+        "startDateTime": null,
+        "createdDateTime": "2025-02-20T19:42:30.1310846Z",
+        "dueDateTime": null,
+        "hasDescription": true,
+        "previewType": "automatic",
+        "completedDateTime": null,
+        "referenceCount": 0,
+        "checklistItemCount": 0,
+        "activeChecklistItemCount": 0,
+        "conversationThreadId": null,
+        "priority": 5,
+        "id": "rXdnHj3hIUSH3G9BECsUT2UADwDI",
+        "completedBy": null,
+        "createdBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "appliedCategories": {},
+        "assignments": {
+            "985172b9-4509-42fb-b557-f1323e395580": {
+                "@odata.type": "#microsoft.graph.plannerAssignment",
+                "assignedDateTime": "2025-02-20T19:42:30.1310846Z",
+                "orderHint": "8584615263953933804P:",
+                "assignedBy": {
+                    "application": {
+                        "displayName": null,
+                        "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+                    },
+                    "user": {
+                        "displayName": null,
+                        "id": "985172b9-4509-42fb-b557-f1323e395580"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "@odata.etag": "W/\"JzEtVGFzayAgQEBAQEBAQEBAQEBAQEBATCc=\"",
+        "planId": "p6g7IIbnbU-whN2bp0R8eGUAA5qT",
+        "bucketId": "SQy7jUf7i0Okkt0Wfv3P_WUAFNxL",
+        "title": "Desenvolver Orçamento Simples no SIC integrado com CRM",
+        "orderHint": "8584615264136854849Pq",
+        "assigneePriority": "",
+        "percentComplete": 0,
+        "startDateTime": null,
+        "createdDateTime": "2025-02-20T19:42:11.9171037Z",
+        "dueDateTime": null,
+        "hasDescription": true,
+        "previewType": "automatic",
+        "completedDateTime": null,
+        "referenceCount": 0,
+        "checklistItemCount": 0,
+        "activeChecklistItemCount": 0,
+        "conversationThreadId": null,
+        "priority": 5,
+        "id": "rQWkVkhgpU61OiyOKnV4pmUAFcwk",
+        "completedBy": null,
+        "createdBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "appliedCategories": {},
+        "assignments": {
+            "985172b9-4509-42fb-b557-f1323e395580": {
+                "@odata.type": "#microsoft.graph.plannerAssignment",
+                "assignedDateTime": "2025-02-20T19:42:11.9171037Z",
+                "orderHint": "8584615264136854849Pj",
+                "assignedBy": {
+                    "application": {
+                        "displayName": null,
+                        "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+                    },
+                    "user": {
+                        "displayName": null,
+                        "id": "985172b9-4509-42fb-b557-f1323e395580"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "@odata.etag": "W/\"JzEtVGFzayAgQEBAQEBAQEBAQEBAQEBAVCc=\"",
+        "planId": "p6g7IIbnbU-whN2bp0R8eGUAA5qT",
+        "bucketId": "VOiJd3xnaUSOOt7eW634PGUADfjP",
+        "title": "Criar Conta no Notion para Documentação do Projeto",
+        "orderHint": "8584591928445727622P6",
+        "assigneePriority": "",
+        "percentComplete": 100,
+        "startDateTime": null,
+        "createdDateTime": "2025-03-19T19:55:00.9673246Z",
+        "dueDateTime": "2025-03-21T10:00:00Z",
+        "hasDescription": false,
+        "previewType": "automatic",
+        "completedDateTime": "2025-03-21T12:18:34.8088128Z",
+        "referenceCount": 0,
+        "checklistItemCount": 0,
+        "activeChecklistItemCount": 0,
+        "conversationThreadId": null,
+        "priority": 5,
+        "id": "2utMnlgPEEmVv2iMn50c_GUAF9XL",
+        "createdBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "completedBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "appliedCategories": {},
+        "assignments": {
+            "985172b9-4509-42fb-b557-f1323e395580": {
+                "@odata.type": "#microsoft.graph.plannerAssignment",
+                "assignedDateTime": "2025-03-19T19:55:00.9673246Z",
+                "orderHint": "8584591928445727622P3",
+                "assignedBy": {
+                    "application": {
+                        "displayName": null,
+                        "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+                    },
+                    "user": {
+                        "displayName": null,
+                        "id": "985172b9-4509-42fb-b557-f1323e395580"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "@odata.etag": "W/\"JzEtVGFzayAgQEBAQEBAQEBAQEBAQEBATCc=\"",
+        "planId": "p6g7IIbnbU-whN2bp0R8eGUAA5qT",
+        "bucketId": "VOiJd3xnaUSOOt7eW634PGUADfjP",
+        "title": "Implementar a Classe RDServices",
+        "orderHint": "8584592141658800572PD",
+        "assigneePriority": "",
+        "percentComplete": 100,
+        "startDateTime": null,
+        "createdDateTime": "2025-03-19T13:59:40.1600394Z",
+        "dueDateTime": "2025-03-19T10:00:00Z",
+        "hasDescription": false,
+        "previewType": "automatic",
+        "completedDateTime": "2025-03-19T19:36:16.9170822Z",
+        "referenceCount": 0,
+        "checklistItemCount": 0,
+        "activeChecklistItemCount": 0,
+        "conversationThreadId": null,
+        "priority": 5,
+        "id": "5cmZTY1Yyki2xZ3wdT6w7GUAMVcI",
+        "createdBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "completedBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "appliedCategories": {},
+        "assignments": {
+            "985172b9-4509-42fb-b557-f1323e395580": {
+                "@odata.type": "#microsoft.graph.plannerAssignment",
+                "assignedDateTime": "2025-03-19T13:59:40.1600394Z",
+                "orderHint": "8584592141658800572PO",
+                "assignedBy": {
+                    "application": {
+                        "displayName": null,
+                        "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+                    },
+                    "user": {
+                        "displayName": null,
+                        "id": "985172b9-4509-42fb-b557-f1323e395580"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "@odata.etag": "W/\"JzEtVGFzayAgQEBAQEBAQEBAQEBAQEBAWCc=\"",
+        "planId": "p6g7IIbnbU-whN2bp0R8eGUAA5qT",
+        "bucketId": "SQy7jUf7i0Okkt0Wfv3P_WUAFNxL",
+        "title": "Implementar a Classe PSOfficeServices",
+        "orderHint": "8584592141507533740P+",
+        "assigneePriority": "",
+        "percentComplete": 100,
+        "startDateTime": null,
+        "createdDateTime": "2025-03-19T13:59:54.9429615Z",
+        "dueDateTime": "2025-03-19T10:00:00Z",
+        "hasDescription": false,
+        "previewType": "automatic",
+        "completedDateTime": "2025-03-19T19:36:15.1422491Z",
+        "referenceCount": 0,
+        "checklistItemCount": 0,
+        "activeChecklistItemCount": 0,
+        "conversationThreadId": null,
+        "priority": 5,
+        "id": "QxE7Edvvlk6mvzbIhDsiBGUAADkb",
+        "createdBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "completedBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "appliedCategories": {},
+        "assignments": {
+            "985172b9-4509-42fb-b557-f1323e395580": {
+                "@odata.type": "#microsoft.graph.plannerAssignment",
+                "assignedDateTime": "2025-03-19T14:00:20.657071Z",
+                "orderHint": "8584592141248361233PE",
+                "assignedBy": {
+                    "application": {
+                        "displayName": null,
+                        "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+                    },
+                    "user": {
+                        "displayName": null,
+                        "id": "985172b9-4509-42fb-b557-f1323e395580"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "@odata.etag": "W/\"JzEtVGFzayAgQEBAQEBAQEBAQEBAQEBAeCc=\"",
+        "planId": "p6g7IIbnbU-whN2bp0R8eGUAA5qT",
+        "bucketId": "Uty9DvelcUeCzHmRXz9GLWUAAcb7",
+        "title": "Desenvolver Endpoint da API para listar grupos, usuários e permissões",
+        "orderHint": "8584620679719076129PV",
+        "assigneePriority": "",
+        "percentComplete": 100,
+        "startDateTime": null,
+        "createdDateTime": "2025-02-14T13:16:13.6480937Z",
+        "dueDateTime": "2025-03-08T10:00:00Z",
+        "hasDescription": false,
+        "previewType": "automatic",
+        "completedDateTime": "2025-03-11T13:10:07.9751416Z",
+        "referenceCount": 0,
+        "checklistItemCount": 0,
+        "activeChecklistItemCount": 0,
+        "conversationThreadId": null,
+        "priority": 5,
+        "id": "BuF097wjjky7ex1a-7SbdWUADTXv",
+        "createdBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "completedBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "appliedCategories": {},
+        "assignments": {
+            "985172b9-4509-42fb-b557-f1323e395580": {
+                "@odata.type": "#microsoft.graph.plannerAssignment",
+                "assignedDateTime": "2025-02-14T13:16:46.1638956Z",
+                "orderHint": "8584620679393293071PN",
+                "assignedBy": {
+                    "application": {
+                        "displayName": null,
+                        "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+                    },
+                    "user": {
+                        "displayName": null,
+                        "id": "985172b9-4509-42fb-b557-f1323e395580"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "@odata.etag": "W/\"JzEtVGFzayAgQEBAQEBAQEBAQEBAQEBBQCc=\"",
+        "planId": "p6g7IIbnbU-whN2bp0R8eGUAA5qT",
+        "bucketId": "Uty9DvelcUeCzHmRXz9GLWUAAcb7",
+        "title": "Desenvolver Modal de Suporte",
+        "orderHint": "85846205Z\\",
+        "assigneePriority": "",
+        "percentComplete": 100,
+        "startDateTime": "2025-02-17T10:00:00Z",
+        "createdDateTime": "2025-02-14T16:22:50.6998186Z",
+        "dueDateTime": "2025-03-05T10:00:00Z",
+        "hasDescription": false,
+        "previewType": "automatic",
+        "completedDateTime": "2025-03-11T13:09:42.3000693Z",
+        "referenceCount": 0,
+        "checklistItemCount": 0,
+        "activeChecklistItemCount": 0,
+        "conversationThreadId": null,
+        "priority": 3,
+        "id": "CjD-QphUM0SIkSZGB28EgWUAHQF9",
+        "createdBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "completedBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "appliedCategories": {},
+        "assignments": {
+            "985172b9-4509-42fb-b557-f1323e395580": {
+                "@odata.type": "#microsoft.graph.plannerAssignment",
+                "assignedDateTime": "2025-02-14T16:22:55.4577758Z",
+                "orderHint": "8584620567700510682PW",
+                "assignedBy": {
+                    "application": {
+                        "displayName": null,
+                        "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+                    },
+                    "user": {
+                        "displayName": null,
+                        "id": "985172b9-4509-42fb-b557-f1323e395580"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "@odata.etag": "W/\"JzEtVGFzayAgQEBAQEBAQEBAQEBAQEBBaCc=\"",
+        "planId": "p6g7IIbnbU-whN2bp0R8eGUAA5qT",
+        "bucketId": "f7LJkkKb3kaR4kc3zrKeQGUAJogQ",
+        "title": "Desenvolver Tela de Backlog de Vendas",
+        "orderHint": "8584620677429938941Pm",
+        "assigneePriority": "",
+        "percentComplete": 100,
+        "startDateTime": "2025-02-10T10:00:00Z",
+        "createdDateTime": "2025-02-14T13:20:02.5305689Z",
+        "dueDateTime": "2025-03-03T10:00:00Z",
+        "hasDescription": false,
+        "previewType": "automatic",
+        "completedDateTime": "2025-03-06T17:00:39.7628927Z",
+        "referenceCount": 0,
+        "checklistItemCount": 0,
+        "activeChecklistItemCount": 0,
+        "conversationThreadId": null,
+        "priority": 5,
+        "id": "Uq8UTwKafEuMkzgmoVt-cGUAMpWT",
+        "createdBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "completedBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "appliedCategories": {},
+        "assignments": {
+            "985172b9-4509-42fb-b557-f1323e395580": {
+                "@odata.type": "#microsoft.graph.plannerAssignment",
+                "assignedDateTime": "2025-02-14T13:22:35.0774806Z",
+                "orderHint": "8584620675904157183Pn",
+                "assignedBy": {
+                    "application": {
+                        "displayName": null,
+                        "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+                    },
+                    "user": {
+                        "displayName": null,
+                        "id": "985172b9-4509-42fb-b557-f1323e395580"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "@odata.etag": "W/\"JzEtVGFzayAgQEBAQEBAQEBAQEBAQEBAYCc=\"",
+        "planId": "p6g7IIbnbU-whN2bp0R8eGUAA5qT",
+        "bucketId": "f7LJkkKb3kaR4kc3zrKeQGUAJogQ",
+        "title": "Melhorias em Controle de Projetos",
+        "orderHint": "8584608403122786916P&",
+        "assigneePriority": "",
+        "percentComplete": 100,
+        "startDateTime": null,
+        "createdDateTime": "2025-02-28T18:17:13.2770166Z",
+        "dueDateTime": "2025-03-03T10:00:00Z",
+        "hasDescription": true,
+        "previewType": "automatic",
+        "completedDateTime": "2025-03-03T14:11:41.6569978Z",
+        "referenceCount": 0,
+        "checklistItemCount": 0,
+        "activeChecklistItemCount": 0,
+        "conversationThreadId": null,
+        "priority": 5,
+        "id": "mCb7QVebHEW-f0qkaQda4GUALrM_",
+        "createdBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "completedBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "appliedCategories": {},
+        "assignments": {
+            "985172b9-4509-42fb-b557-f1323e395580": {
+                "@odata.type": "#microsoft.graph.plannerAssignment",
+                "assignedDateTime": "2025-02-28T18:17:13.2770166Z",
+                "orderHint": "8584608403122786916P.",
+                "assignedBy": {
+                    "application": {
+                        "displayName": null,
+                        "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+                    },
+                    "user": {
+                        "displayName": null,
+                        "id": "985172b9-4509-42fb-b557-f1323e395580"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "@odata.etag": "W/\"JzEtVGFzayAgQEBAQEBAQEBAQEBAQEBAZCc=\"",
+        "planId": "p6g7IIbnbU-whN2bp0R8eGUAA5qT",
+        "bucketId": "f7LJkkKb3kaR4kc3zrKeQGUAJogQ",
+        "title": "Adicionar Função para retornar processos Cmercial",
+        "orderHint": "8584610236084775254Pq",
+        "assigneePriority": "",
+        "percentComplete": 100,
+        "startDateTime": null,
+        "createdDateTime": "2025-02-26T15:22:17.093829Z",
+        "dueDateTime": "2025-02-25T10:00:00Z",
+        "hasDescription": false,
+        "previewType": "automatic",
+        "completedDateTime": "2025-02-26T15:23:33.5396494Z",
+        "referenceCount": 0,
+        "checklistItemCount": 0,
+        "activeChecklistItemCount": 0,
+        "conversationThreadId": null,
+        "priority": 5,
+        "id": "0qOjpuYZ6UqJcsYcwBc5fGUAOBN4",
+        "createdBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "completedBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "appliedCategories": {},
+        "assignments": {
+            "985172b9-4509-42fb-b557-f1323e395580": {
+                "@odata.type": "#microsoft.graph.plannerAssignment",
+                "assignedDateTime": "2025-02-26T15:22:17.093829Z",
+                "orderHint": "8584610236084775254P(",
+                "assignedBy": {
+                    "application": {
+                        "displayName": null,
+                        "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+                    },
+                    "user": {
+                        "displayName": null,
+                        "id": "985172b9-4509-42fb-b557-f1323e395580"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "@odata.etag": "W/\"JzEtVGFzayAgQEBAQEBAQEBAQEBAQEBAYCc=\"",
+        "planId": "p6g7IIbnbU-whN2bp0R8eGUAA5qT",
+        "bucketId": "Uty9DvelcUeCzHmRXz9GLWUAAcb7",
+        "title": "Adicionar controle de Recursos nas atividades",
+        "orderHint": "8584611890590346786PQ",
+        "assigneePriority": "",
+        "percentComplete": 100,
+        "startDateTime": null,
+        "createdDateTime": "2025-02-24T17:24:46.6616695Z",
+        "dueDateTime": "2025-02-26T10:00:00Z",
+        "hasDescription": false,
+        "previewType": "automatic",
+        "completedDateTime": "2025-02-25T13:45:00.3105213Z",
+        "referenceCount": 0,
+        "checklistItemCount": 0,
+        "activeChecklistItemCount": 0,
+        "conversationThreadId": null,
+        "priority": 5,
+        "id": "29ysUQynTkKqWqg4xQNLbWUABH1s",
+        "createdBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "completedBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "appliedCategories": {},
+        "assignments": {
+            "985172b9-4509-42fb-b557-f1323e395580": {
+                "@odata.type": "#microsoft.graph.plannerAssignment",
+                "assignedDateTime": "2025-02-24T17:24:46.6616695Z",
+                "orderHint": "8584611890590346786Px",
+                "assignedBy": {
+                    "application": {
+                        "displayName": null,
+                        "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+                    },
+                    "user": {
+                        "displayName": null,
+                        "id": "985172b9-4509-42fb-b557-f1323e395580"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "@odata.etag": "W/\"JzEtVGFzayAgQEBAQEBAQEBAQEBAQEBBUCc=\"",
+        "planId": "p6g7IIbnbU-whN2bp0R8eGUAA5qT",
+        "bucketId": "f7LJkkKb3kaR4kc3zrKeQGUAJogQ",
+        "title": "Desenvolver tela de Projetos em encerramento no financeiro",
+        "orderHint": "85846204\\>",
+        "assigneePriority": "",
+        "percentComplete": 100,
+        "startDateTime": "2025-02-14T10:00:00Z",
+        "createdDateTime": "2025-02-14T18:17:23.3854073Z",
+        "dueDateTime": "2025-02-18T10:00:00Z",
+        "hasDescription": false,
+        "previewType": "automatic",
+        "completedDateTime": "2025-02-18T15:00:36.5199558Z",
+        "referenceCount": 0,
+        "checklistItemCount": 0,
+        "activeChecklistItemCount": 0,
+        "conversationThreadId": "AAQkAGZiNjNmOGJmLTc3ZWMtNDcyNy1hNjJlLWZkMDQzZjk1YzZiZQMkABAAodeSJmz2pUK-isif7_G9dRAAodeSJmz2pUK-isif7_G9dQ==",
+        "priority": 5,
+        "id": "fmWm5WURJUSTxUuPEYIcPGUAHED4",
+        "createdBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "completedBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "appliedCategories": {},
+        "assignments": {
+            "985172b9-4509-42fb-b557-f1323e395580": {
+                "@odata.type": "#microsoft.graph.plannerAssignment",
+                "assignedDateTime": "2025-02-14T18:17:28.9610613Z",
+                "orderHint": "8584620498958424035P-",
+                "assignedBy": {
+                    "application": {
+                        "displayName": null,
+                        "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+                    },
+                    "user": {
+                        "displayName": null,
+                        "id": "985172b9-4509-42fb-b557-f1323e395580"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "@odata.etag": "W/\"JzEtVGFzayAgQEBAQEBAQEBAQEBAQEBAbCc=\"",
+        "planId": "p6g7IIbnbU-whN2bp0R8eGUAA5qT",
+        "bucketId": "f7LJkkKb3kaR4kc3zrKeQGUAJogQ",
+        "title": "Criar chaves SSH para o Servidor Cercomp x Github",
+        "orderHint": "8584618105138697998Pg",
+        "assigneePriority": "",
+        "percentComplete": 100,
+        "startDateTime": null,
+        "createdDateTime": "2025-02-17T12:47:12.0765655Z",
+        "dueDateTime": "2025-02-18T10:00:00Z",
+        "hasDescription": false,
+        "previewType": "automatic",
+        "completedDateTime": "2025-02-18T11:58:15.7111462Z",
+        "referenceCount": 0,
+        "checklistItemCount": 0,
+        "activeChecklistItemCount": 0,
+        "conversationThreadId": null,
+        "priority": 5,
+        "id": "xiXu57N6XkKVjQfvvrRi6WUALGfN",
+        "createdBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "completedBy": {
+            "application": {
+                "displayName": null,
+                "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+            },
+            "user": {
+                "displayName": null,
+                "id": "985172b9-4509-42fb-b557-f1323e395580"
+            }
+        },
+        "appliedCategories": {},
+        "assignments": {
+            "985172b9-4509-42fb-b557-f1323e395580": {
+                "@odata.type": "#microsoft.graph.plannerAssignment",
+                "assignedDateTime": "2025-02-17T12:47:12.0765655Z",
+                "orderHint": "8584618105138697998Pk",
+                "assignedBy": {
+                    "application": {
+                        "displayName": null,
+                        "id": "75f31797-37c9-498e-8dc9-53c16a36afca"
+                    },
+                    "user": {
+                        "displayName": null,
+                        "id": "985172b9-4509-42fb-b557-f1323e395580"
+                    }
+                }
+            }
+        }
+    }
+]

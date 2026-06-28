@@ -1,0 +1,12 @@
+SELECT 
+    proj_id, 
+    emp_id, 
+    cli_id,
+    cr_id, 
+    codigo, 
+    usu_emp_id, 
+    tipo_de_projeto, 
+    wkf_step_desc,
+    valor 
+FROM 
+    pso_projetos;

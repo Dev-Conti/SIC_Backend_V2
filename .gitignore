@@ -1,0 +1,40 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+ENV/
+env/
+
+# Flask instance folder
+instance/
+*.sqlite3
+
+# Environment variables
+.env
+*.env
+
+# Vercel build files
+.vercel/
+*.log
+
+# Python packaging
+*.egg-info/
+build/
+dist/
+
+# IDE-specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# MacOS system files
+.DS_Store
+
+# Linux system files
+*.~lock.*
+Thumbs.db

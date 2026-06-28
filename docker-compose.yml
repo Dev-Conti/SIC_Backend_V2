@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  flask_app_sic:
+    container_name: backend-5000  # Nome único para o container da porta 5000
+    build: .               # Construirá a imagem Docker a partir do Dockerfile localizado no diretório atual
+    image: sic-backend  # Define o nome da imagem que será criada
+    ports:
+      - "5000:5000"        # Mapeia a porta 5000 do container para a porta 5000 do host
+    volumes:
+      - .:/app             # Mapeia o diretório atual (onde o Docker Compose está sendo executado) para o diretório /app no container
+    env_file:
+      - .env               # Carrega variáveis de ambiente do arquivo .env para o container
+    restart: always        # Garante que o container seja reiniciado automaticamente caso pare

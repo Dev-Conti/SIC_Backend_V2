@@ -1,0 +1,680 @@
+[
+    {
+        "displayName": "Comissões Comerciais",
+        "id": "01c7eb67-8c86-4aaa-9176-6d32cab58bd6",
+        "email": "ComissesComerciais@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "ServiçosClientes",
+        "id": "053d4b51-3761-4d11-a395-40d82731b389",
+        "email": "ServiosClientes@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Projetos Simao",
+        "id": "05e8018c-33a2-48f7-8b94-d9fdf8acda3a",
+        "email": "projetos_simao@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Desenvolvimento",
+        "id": "0773df40-a2fb-4c71-bf7c-63a27ce5a2be",
+        "email": "desenvolvimento@conticonsultoria.com.br",
+        "visibility": null
+    },
+    {
+        "displayName": "Consultoria",
+        "id": "0cde1dcd-765a-47a5-a032-e9d4487f87a4",
+        "email": "consultoria@conticonsultoria.com.br",
+        "visibility": null
+    },
+    {
+        "displayName": "Projetos Pedro",
+        "id": "0dff3ed7-a79b-48ce-bb17-8c9af6eafcdf",
+        "email": "projetos.pedro@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Atualização de Clientes",
+        "id": "0fcf64c1-0f36-403d-8f88-3a5faa66f5d5",
+        "email": "clientes@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Consultoria Fluig",
+        "id": "11697bb2-8dde-4511-b315-7b6d24e53ff5",
+        "email": "consultoria.fluig@conticonsultoria.com.br",
+        "visibility": null
+    },
+    {
+        "displayName": "TI",
+        "id": "11801d85-39a1-4123-a513-604939e25e30",
+        "email": "TI.Interno@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Contas a Pagar",
+        "id": "124dcd6b-94ac-41ff-8b9c-36aa44e8e7f3",
+        "email": "contas_a_pagar@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Políticas",
+        "id": "1268de04-2cee-4b65-b643-53cad9f7acdf",
+        "email": "Polticas@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "344.3879.2023-Marelli_Implantação Nova Filial",
+        "id": "12ef542d-7c22-4f48-b70f-d1b29313fe9a",
+        "email": "344.3879.2023-Marelli_ImplantaoNovaFilial@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Suporte técnico TI",
+        "id": "131f4d20-b4a1-4ab0-927d-f8909dbfe395",
+        "email": "SuportetcnicoTI@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Equipe Sócios",
+        "id": "17d86454-b62d-4591-9f0b-bfc5a0694f19",
+        "email": "Socios1@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Gestão de Metas - Área de Serviços",
+        "id": "1991c820-35b5-43a4-a301-151918769334",
+        "email": "GestodeMetas-readeServios@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Serviços EPG",
+        "id": "1a1ec5dc-a5c4-43d4-915e-a6eb421f860d",
+        "email": "ServiosEPG@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "RH Interno",
+        "id": "1c06b20f-d8d9-41c2-8b6d-5ba84d4d8f3a",
+        "email": "RH_Andressa_e_Matheus@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Intranet ConTI",
+        "id": "24435f3b-237a-46f8-9d04-684c3a3cba34",
+        "email": "FormsPrivado@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Prosper",
+        "id": "250f8546-748a-4938-b385-a96fe6ac11b1",
+        "email": "Prosper@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Cohab",
+        "id": "252054e0-cd91-450a-90ea-8c10f0bfa925",
+        "email": "Cohab@conticonsultoria.com.br",
+        "visibility": "Public"
+    },
+    {
+        "displayName": "CS - Comercial",
+        "id": "2b1d94db-4367-473a-8960-92b81d29d699",
+        "email": "cs.comercial@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "CS - AMS",
+        "id": "2b275f5a-f1dd-43dc-9a8d-b68a2ffb1707",
+        "email": "ams@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Tsea_MI_Implantação",
+        "id": "2d762e1e-28d4-4c68-a3ab-f87f3065a2a8",
+        "email": "Tsea_MI_Implantao@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "PDI-2",
+        "id": "2f5db706-137d-4ded-94c8-7586e8fdac98",
+        "email": "PDI-2@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "TSEA-PDM",
+        "id": "2f72be80-f927-4a88-94e2-b6c027f259f9",
+        "email": "TSEA-PDM@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Nexus - Reimplantação MI",
+        "id": "2fbd3f8e-8a1e-452b-a7e9-1c655cb3c003",
+        "email": "Nexus-ReimplantaoMI@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Todos Externos",
+        "id": "30c56ea9-1c18-4c47-bd98-2d0ac15beb5a",
+        "email": "todos.externos@conticonsultoria.com.br",
+        "visibility": null
+    },
+    {
+        "displayName": "Desenvolvimento",
+        "id": "31a7e465-c2ce-4089-b45f-17e441027131",
+        "email": "ClienteTerphane@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "005.3012.2022-ASK_Implant Fluxo de Caixa Datasul",
+        "id": "31b786c8-e0ef-44c8-81fa-e5bfd8818b1a",
+        "email": "005.3012.2022-ASK_ImplantFluxodeCaixaDatasul@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Segurança&Saúde",
+        "id": "31d6e9b5-e555-441f-b8e8-8d9080af8375",
+        "email": "SeguranaSade@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Base de Dados",
+        "id": "3443adc2-1c58-44d7-8522-da5580ae6a08",
+        "email": "BasedeDados@conticonsultoria.com.br",
+        "visibility": "Public"
+    },
+    {
+        "displayName": "Atualização Intranet",
+        "id": "34b2005b-6e16-4857-90fa-32bcb531ec02",
+        "email": "atualizacao.intranet@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Agenda Santa Clara",
+        "id": "385f4095-9042-4b52-8f26-71473561728a",
+        "email": "AgendaSantaClara@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Warm-up de Projetos",
+        "id": "3a1a765d-9ea6-4313-8b04-0140677756b0",
+        "email": "ComercialServios@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "grupoparatestederegra",
+        "id": "3ebc3705-f1c5-41b1-a7e9-054052b360d5",
+        "email": "grupoparatestederegra@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Soluções MI",
+        "id": "41e5de19-9ebb-46d1-b1b6-7971b8086daa",
+        "email": "SoluesMI@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "TI",
+        "id": "4296a973-d1f1-4be7-b1c8-1b898d03c43f",
+        "email": null,
+        "visibility": null
+    },
+    {
+        "displayName": "Comercial Novo",
+        "id": "449eb546-b0a8-4d6d-99a0-f31dd81a072b",
+        "email": "grupocomercial@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Gerenciamento de Projetos RH",
+        "id": "46ddfb83-906d-4474-a165-1dbcae87bdbb",
+        "email": "ProcessosTrabalhistas@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Contato",
+        "id": "47745355-561e-4d55-8d9a-e19a9cb14a28",
+        "email": "contato@conticonsultoria.com.br",
+        "visibility": null
+    },
+    {
+        "displayName": "Marketing",
+        "id": "48445aa8-d25d-42dc-80c4-b468432d4ea2",
+        "email": "Marketing4734@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "RS",
+        "id": "48d7b695-139f-463b-ba4f-e2b285ef492a",
+        "email": "RS@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Andressa",
+        "id": "4aae8db6-42fb-49a8-9e83-d3055427ea91",
+        "email": "Andressa@conticonsultoria.com.br",
+        "visibility": "Public"
+    },
+    {
+        "displayName": "Calculo da Folha de Pagamento",
+        "id": "4c666dbc-143d-4bb8-974a-df98381ce50f",
+        "email": "FolhadePagamento@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "XMLLoader",
+        "id": "525f64c4-ac48-4596-b2dd-bea8ea24e9bc",
+        "email": "cs.nps.xmloader@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "XML Loader",
+        "id": "52ff310a-30a3-4c6f-888d-18e2a8de574b",
+        "email": "XMLLoader@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Projeto Usina União",
+        "id": "570ece5a-a20d-4345-aaf7-564261b6db65",
+        "email": "ProjetoUsinaUnio@conticonsultoria.com.br",
+        "visibility": "Public"
+    },
+    {
+        "displayName": "Serviços Gestão",
+        "id": "571289f3-f8a6-44e4-a6c7-9760e26308ce",
+        "email": "ServiosGesto@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Servicos Clientes_045.2242.2021-Implant Datasul Proj Manganes",
+        "id": "591049b6-320c-463f-8181-bf84d0ee1797",
+        "email": "ServicosClientes_045.2242.2021-ImplantDatasulProjManganes@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "CS - GLPI Loader",
+        "id": "59ec5641-acc6-42e4-8d5e-15450287cec5",
+        "email": "cs-loader@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "TOTVS RM",
+        "id": "5bd177b5-1b3d-4515-8b75-b30dc1d18c2d",
+        "email": "rm-backoffice@conticonsultoria.com.br",
+        "visibility": "Public"
+    },
+    {
+        "displayName": "Projeto Manganes",
+        "id": "5e81ef2d-4d63-42ea-99d0-018b5f59a65f",
+        "email": "ProjetoManganes@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Marangoni",
+        "id": "601b97ac-9312-4f8d-9f0e-733f1f6ff3f0",
+        "email": "Marangoni@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Consultoria Datasul",
+        "id": "612351bf-54e0-4198-a7fb-fc799de2a945",
+        "email": "consultoria.datasul@conticonsultoria.com.br",
+        "visibility": null
+    },
+    {
+        "displayName": "Contatos",
+        "id": "63708608-d6fb-431b-a5f0-955b59b6c75b",
+        "email": "Contatos@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Comercial Teste",
+        "id": "648e6e59-d6f1-453b-a25c-7bcfd1d84714",
+        "email": "comercial.teste@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "PDI",
+        "id": "674729f8-3f85-48e5-9ce6-7d86672e1490",
+        "email": "PDI@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Nansen Projeto ERP 4.0",
+        "id": "6795ebff-cd88-4a35-b29a-c37340fed15d",
+        "email": "NansenProjetoERP4.0@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Administração TI",
+        "id": "6aa5924c-6f44-47ad-ad32-0ecef0272704",
+        "email": "AdministracaoTI@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Inovação",
+        "id": "6ae33697-1f6d-4cba-900e-f23bcbf440d6",
+        "email": "Inovacao@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Ficha de EPI - NEXUS",
+        "id": "6c5622b0-3466-4c82-939f-a48d97a5bce8",
+        "email": "FichadeEPI-NEXUS@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Orthocrin",
+        "id": "6c7c9e0c-3129-4f6b-baf1-1b3dfdeeef27",
+        "email": "Orthocrin@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "PDI ConTI",
+        "id": "70d72f05-3462-461f-84e8-e6f2724610c8",
+        "email": "PDIConTI@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Socios",
+        "id": "718b8873-3ca9-4bd1-bd3d-6b657fe2cf80",
+        "email": "socios@conticonsultoria.com.br",
+        "visibility": null
+    },
+    {
+        "displayName": "ConTI",
+        "id": "7bba495f-8f54-46d4-89ef-72c4d81c5ce0",
+        "email": "conti165@conticonsultoria.com.br",
+        "visibility": "Public"
+    },
+    {
+        "displayName": "Relatórios Gerenciais",
+        "id": "7d41170f-0087-4afc-a921-c577d16ed5be",
+        "email": "RelatriosGerenciais@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "DeskManager",
+        "id": "7d678df9-d870-417b-ad99-2f5c95386436",
+        "email": "DeskManager@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "CONTI",
+        "id": "7e243518-e55c-4a1c-80f6-17a27652b012",
+        "email": "conti@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Recursos Humanos",
+        "id": "7e39ea09-8dae-4114-9251-31ba8473083c",
+        "email": "RecursosHumanos@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Financeiro",
+        "id": "85c3186e-2c58-4063-830e-9bbee66bb5d8",
+        "email": "Financeiro1@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "CODEMGE",
+        "id": "878f0558-d574-4f91-af92-71518425e072",
+        "email": "CODEMGE@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Formularios",
+        "id": "8b19e08f-9069-4237-b409-e8decf479987",
+        "email": "Formularios@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Gerentes de Projeto",
+        "id": "8bb8afba-85ed-4ced-85d4-0caa088e7f22",
+        "email": "gerentesdeprojetos@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Projetos RM",
+        "id": "92b374f1-8656-47ed-a4e8-4909ad85dd48",
+        "email": "ProjetosRM@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Intranet ConTI",
+        "id": "95bf2d62-e9ab-4f27-89d6-98b5fc7e8390",
+        "email": "politicas@conticonsultoria.com.br",
+        "visibility": "Public"
+    },
+    {
+        "displayName": "Finder",
+        "id": "97861560-991e-482e-8052-78f4f208d229",
+        "email": "Finder@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Fichas",
+        "id": "9e8251cd-d7ae-4ad5-b54a-797bba34f520",
+        "email": "Fichas@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Junia Mendes",
+        "id": "9e907337-8e4e-4f4e-801d-c20d2b5dcc13",
+        "email": "JuniaMendes@conticonsultoria.com.br",
+        "visibility": "Public"
+    },
+    {
+        "displayName": "PROJETOS RAMON",
+        "id": "a4b88393-284c-4aa1-8387-d96885fe2ff7",
+        "email": "PROJETOSRAMON@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Customer Success",
+        "id": "a6b31e94-b31d-4f1b-9b05-40c9d16703f5",
+        "email": "CustomerSuccess@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Processos",
+        "id": "a8b13a7a-830e-4c8f-a258-3d0ce50d0cdf",
+        "email": "processos@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Serviços Clientes",
+        "id": "ad1a22ba-74ff-4a63-a9b0-53ccfbb2a14e",
+        "email": "ServicosClientes@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Comercial BKP",
+        "id": "af67a94f-f361-4120-87f6-9444d63147f1",
+        "email": "Comercial@conticonsultoriabr.onmicrosoft.com",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Administradores Teams",
+        "id": "b1a8fe88-495a-46f1-b25b-bb76cf2ab415",
+        "email": "adminteams@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Isolucks",
+        "id": "b2c5e92e-71d9-440f-a7af-acef989777ad",
+        "email": "Isolucks@conticonsultoria.com.br",
+        "visibility": "Public"
+    },
+    {
+        "displayName": "PDI-3",
+        "id": "b770b69b-c798-4550-9ac5-d24a67cff41d",
+        "email": "PDI-3@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Terphane-MI",
+        "id": "bb077daf-b1bf-4ea0-b187-03304ffdb493",
+        "email": "Terphane-MI@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "SESMT",
+        "id": "be550414-a255-4d78-8952-c2716156ef14",
+        "email": "SESMT@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Pendências",
+        "id": "c11bc9b8-605d-42ce-bd64-33660779d0f8",
+        "email": "pendencias@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Eu Fernando",
+        "id": "c159248d-05b1-4426-9c06-fc0c194f208c",
+        "email": "EuFernando@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "MKT&RH",
+        "id": "c37feaf6-4545-44bc-9c01-f6c75dbdf036",
+        "email": "Marketing_Recursos_Humanos@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Cadastro de Clientes",
+        "id": "ca774f2d-8e39-40da-b11e-ac5b8d8e2058",
+        "email": "cadastrodeclientes@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Administrativo",
+        "id": "ca91f005-c583-4ce3-9a81-a1336a33c531",
+        "email": "Administrativo1240@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Contas a Pagar e Receber",
+        "id": "ce021568-dc4b-4106-95d0-4f1332b514e7",
+        "email": "ContasaPagareReceber@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Formulários",
+        "id": "d289fea5-427d-406d-bf88-7bf9e41f2e5a",
+        "email": "Formulrios@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Todos Interno",
+        "id": "d47c5ef6-43af-47d5-98a1-afc574b7032c",
+        "email": "todosinterno@conticonsultoria.com.br",
+        "visibility": null
+    },
+    {
+        "displayName": "Inova-Gestão a Vista",
+        "id": "d8064768-a6ac-4aa7-8bd5-c2610ccbedeb",
+        "email": "Inova-GestoaVista@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Faturamento",
+        "id": "ddff9b94-2266-448d-a5cd-dbf9cb57de04",
+        "email": "faturamento.conti@conticonsultoria.com.br",
+        "visibility": null
+    },
+    {
+        "displayName": "Desenvolvimento TI",
+        "id": "de3505ea-9119-45f9-8db6-524841555751",
+        "email": "DesenvolvimentoTI@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Ciclo Vida Projeto",
+        "id": "df5919f9-37fd-4725-9aab-8ecc154789a8",
+        "email": "CicloVidaProjeto@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Gerenciamento de Projeto",
+        "id": "e004c0f1-2d02-4335-a411-a378f9b35675",
+        "email": "GerenciamentodeProjeto@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "BPO",
+        "id": "e0ce6b3b-5aea-489f-964d-33f6fdc6d45f",
+        "email": "PBO@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "TSEA ENERGIA",
+        "id": "e261b07d-af1b-4387-9546-dfec00c01bc5",
+        "email": "TSEAENERGIA@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "MVV-MI",
+        "id": "e88de66c-7ead-4563-a809-6f9c56541f9e",
+        "email": "MVV-MI@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Priva",
+        "id": "e8d7be65-95f7-45c3-95f6-2b6adf493e09",
+        "email": "LGPD@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "chamados",
+        "id": "ea8d452c-64d5-4bd0-9d77-4b1185752667",
+        "email": "chamados@conticonsultoriabr.onmicrosoft.com",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Consultoria RM",
+        "id": "f023bf6e-0042-453d-a1bf-64102f999b68",
+        "email": "consultoria.rm@conticonsultoria.com.br",
+        "visibility": null
+    },
+    {
+        "displayName": "E-Learning Conti",
+        "id": "f1372d65-d5b5-400e-8e2e-ff08a468d9a8",
+        "email": "E-LearningConti@conticonsultoria.com.br",
+        "visibility": "Public"
+    },
+    {
+        "displayName": "Unidade RH",
+        "id": "f46050b3-bd3e-4af4-a283-831d12676a38",
+        "email": "UnidadeRH@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "TOTVS RM",
+        "id": "f7a6963c-ef6a-4706-b8bf-51b8dab98e0c",
+        "email": "RM.BacOffice@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Inova-DeskManager Migração",
+        "id": "fb728f38-6a9b-4860-9d4b-80127ce8d413",
+        "email": "Inova-DeskManagerMigrao@conticonsultoria.com.br",
+        "visibility": "Private"
+    },
+    {
+        "displayName": "Consultoria Protheus",
+        "id": "fb82ccc0-5a00-436c-aadf-7cbf04b2a82d",
+        "email": "consultoria.protheus@conticonsultoria.com.br",
+        "visibility": null
+    },
+    {
+        "displayName": "Recrutamento & Seleção",
+        "id": "fd0fada5-6e62-4181-8934-ee048e18ce32",
+        "email": "RecrutamentoSeleo@conticonsultoria.com.br",
+        "visibility": "Private"
+    }
+]
