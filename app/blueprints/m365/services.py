@@ -138,3 +138,21 @@ class M365Services:
 
         except requests.RequestException as e:
             raise Exception(f"Erro ao obter membros do canal: {e}")
+
+    def get_group_members(self, group_id):
+        try:
+            endpoint = f"{self.base_url}/groups/{group_id}/members"
+            response = requests.get(endpoint, headers=self.headers)
+            response.raise_for_status()
+            members_data = response.json().get("value", [])
+            return [
+                {
+                    "id": m.get("id"),
+                    "displayName": m.get("displayName", ""),
+                    "email": m.get("mail") or m.get("userPrincipalName", ""),
+                    "isOwner": False,
+                }
+                for m in members_data
+            ]
+        except requests.RequestException as e:
+            raise Exception(f"Erro ao obter membros do grupo: {e}")

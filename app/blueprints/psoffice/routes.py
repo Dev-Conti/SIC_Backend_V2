@@ -20,7 +20,7 @@ def psoffice_users():
 def get_centros_resultado():
     """Endpoint para obter centros de resultado."""
     try:
-        data = psoffice_services.get_centros_resultado()
+        data = psoffice_services.buscar_centros_resultado()
         return success_response("Centros de resultado obtidos com sucesso.", data)
     except Exception as e:
         return error_response("Erro ao obter centros de resultado.", error=str(e))

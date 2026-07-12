@@ -46,6 +46,21 @@ def get_channel_members():
     except Exception as e:
         return error_response("Erro ao obter os membros do canal", 500, str(e))
 
+@m365_bp.route('/group_members', methods=['GET'])
+@validate_tokens
+def get_group_members():
+    try:
+        group_id = request.args.get('group_id')
+        if not group_id:
+            return error_response("O parâmetro 'group_id' é obrigatório", 400)
+        app_token_service = M365AppToken()
+        app_token = app_token_service.get_token()
+        m365_service = M365Services(app_token)
+        members = m365_service.get_group_members(group_id)
+        return success_response("Membros do grupo obtidos com sucesso", members)
+    except Exception as e:
+        return error_response("Erro ao obter os membros do grupo", 500, str(e))
+
 @m365_bp.route('/groups', methods=['GET'])
 @validate_tokens
 def get_groups():
