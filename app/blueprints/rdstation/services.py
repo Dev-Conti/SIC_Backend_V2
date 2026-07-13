@@ -81,7 +81,8 @@ class RdServices:
             while offset:                
                 url = f"{base_url}/deals?token={self.token}&page={page}&limit={limit}"
                 if win is not None:
-                    url += f"&win={win}"
+                    win_param = str(win).lower() if isinstance(win, bool) else win
+                    url += f"&win={win_param}"
                 if closed_at_period is not None:
                     url += f"&closed_at_period={closed_at_period}&start_date={start_date}&end_date={end_date}"
                 response = requests.get(url, headers=headers)
@@ -121,7 +122,8 @@ def export_deals(win=None):
         while offset:
             url = f"{base_url}/deals?token={config.TOKEN_RD}&page={page}&limit={limit}"
             if win is not None:
-                url += f"&win={win}"
+                win_param = str(win).lower() if isinstance(win, bool) else win
+                url += f"&win={win_param}"
             response = requests.get(url, headers=headers)
 
             if response.status_code == 200:

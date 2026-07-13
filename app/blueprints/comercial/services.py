@@ -47,6 +47,10 @@ def obter_novos_ganhos(days=7):
     # Obter todas as negociações ganhas (wins)
     wins = RdServices().obter_negociacoes(win=True, closed_at_period="true", start_date=start_date, end_date=end_date)
 
+    # Filtro defensivo: garante que apenas negócios efetivamente marcados como
+    # ganhos no CRM entrem na fila, mesmo que o filtro da API do RD Station falhe.
+    wins = [w for w in wins if w.get("win") is True]
+
     # Extrair os IDs das negociações ganhas
     win_ids = [win["id"] for win in wins]
 
