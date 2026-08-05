@@ -1,0 +1,6 @@
+{% extends "emails/base.html" %}
+{% block content %}
+<p>Há um novo warmup disponível para análise do financeiro.</p>
+<p>O formulário do Warmup está disponível para acompanhamento no Portal do SIC.</p>
+<p>Ou <a href="{{ base_url }}/forms-warmup-financeiro/{{ item_id }}" target="_blank">Clique aqui para acessar o formulário</a></p>
+{% endblock %}

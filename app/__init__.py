@@ -14,6 +14,7 @@ from .blueprints.users import users_bp
 from .blueprints.reports import reports_bp
 from .blueprints.suporte import suporte_bp
 from .blueprints.deskmanager import deskmanager_bp
+from .blueprints.notifications import notifications_bp
 from .blueprints.api import api_bp
 from dotenv import load_dotenv
 load_dotenv(override=True)
@@ -66,6 +67,7 @@ def create_app():
     app.register_blueprint(comercial_bp, url_prefix='/comercial')
     app.register_blueprint(reports_bp, url_prefix='/reports')
     app.register_blueprint(suporte_bp, url_prefix='/suporte')
+    app.register_blueprint(notifications_bp, url_prefix='/notifications')
     app.register_blueprint(api_bp, url_prefix='/api/v1')
     
 

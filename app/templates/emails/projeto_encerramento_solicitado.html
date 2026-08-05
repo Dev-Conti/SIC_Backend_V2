@@ -1,0 +1,5 @@
+{% extends "emails/base.html" %}
+{% block content %}
+<p>Foi solicitado o encerramento para o projeto <strong>{{ codigo }}</strong>.</p>
+<p><a href="{{ base_url }}/financeiro/projetos" target="_blank">Clique aqui para ver o controle de projetos</a></p>
+{% endblock %}

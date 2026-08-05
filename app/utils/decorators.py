@@ -1,8 +1,8 @@
 from functools import wraps
 from flask import request, jsonify
-from app.extensions import auth365  # Exemplo de extensão de autenticação usada
+from app.config import Config
 import jwt
-from jwt import PyJWKClient, InvalidTokenError, DecodeError
+from jwt import InvalidTokenError, DecodeError
 
 def require_auth(f):
     @wraps(f)
@@ -15,17 +15,12 @@ def require_auth(f):
             # Remove o prefixo 'Bearer ' do token
             token = token.split()[1]
 
-            # URL do JWKS da Microsoft
-            jwks_url = f"{auth365.client.authority}/discovery/v2.0/keys"
-            jwks_client = PyJWKClient(jwks_url)
-            signing_key = jwks_client.get_signing_key_from_jwt(token)
-
-            # Decodifica o token e verifica o audience
+            # Decodifica o JWT emitido pelo próprio backend em /auth/callback
+            # (HS256, assinado com JWT_SECRET_KEY — não é o token da Microsoft)
             decoded_token = jwt.decode(
                 token,
-                signing_key.key,
-                algorithms=["RS256"],
-                audience=auth365.client.client_id  # Verifica se o token é para o backend
+                Config.JWT_SECRET_KEY,
+                algorithms=["HS256"]
             )
 
             # Token válido

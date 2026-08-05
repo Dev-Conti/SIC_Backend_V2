@@ -1,0 +1,5 @@
+{% extends "emails/base.html" %}
+{% block greeting %}<p>Olá {{ gerente_nome }},</p>{% endblock %}
+{% block content %}
+<p>O projeto <strong>{{ codigo }}</strong> foi encerrado com sucesso dentro do SIC.</p>
+{% endblock %}

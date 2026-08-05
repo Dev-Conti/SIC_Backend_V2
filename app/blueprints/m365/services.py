@@ -139,6 +139,23 @@ class M365Services:
         except requests.RequestException as e:
             raise Exception(f"Erro ao obter membros do canal: {e}")
 
+    def send_mail(self, sender_email, recipient_email, subject, body_content):
+        send_mail_url = f'{self.base_url}/users/{sender_email}/sendMail'
+        payload = {
+            "message": {
+                "subject": subject,
+                "body": {
+                    "contentType": "HTML",
+                    "content": body_content
+                },
+                "toRecipients": [
+                    {"emailAddress": {"address": recipient_email}}
+                ]
+            }
+        }
+        response = requests.post(send_mail_url, headers=self.headers, json=payload)
+        response.raise_for_status()
+
     def get_group_members(self, group_id):
         try:
             endpoint = f"{self.base_url}/groups/{group_id}/members"
