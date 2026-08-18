@@ -15,9 +15,9 @@ def psoffice_users():
 @comercial_bp.route('/ganhos', methods=['GET'])
 def novas_negociacoes():
     """Endpoint que retorna as novas negociações."""
-    # Obtém o parâmetro 'days' da query string, com valor padrão de 7
-    days = request.args.get('days', default=7, type=int)
-    
+    # Obtém o parâmetro 'days' da query string, com valor padrão de 30
+    days = request.args.get('days', default=30, type=int)
+
     # Chama a função com o parâmetro 'days'
     novas_negociacoes = obter_novos_ganhos(days=days)
     return jsonify(novas_negociacoes)

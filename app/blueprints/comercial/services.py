@@ -36,9 +36,10 @@ def atualizar_negociacoes():
 
     return success_response(f"{len(operacoes)} negociações atualizadas ou inseridas no MongoDB.", {"total": len(operacoes)})
 
-def obter_novos_ganhos(days=7):
+def obter_novos_ganhos(days=30):
     """
-    Retorna todas as negociações cujo campo 'win' é True e que não estão presentes na coleção 'warmup_projetos'.
+    Retorna todas as negociações cujo campo 'win' é True, fechadas nos últimos
+    `days` dias (default 30), e que não estão presentes na coleção 'warmup_projetos'.
     """
     # Obter o intervalo de datas
     start_date = DatetimeServices.data_anterior_ndias(days)
