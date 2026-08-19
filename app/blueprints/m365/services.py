@@ -139,7 +139,13 @@ class M365Services:
         except requests.RequestException as e:
             raise Exception(f"Erro ao obter membros do canal: {e}")
 
+    DEV_RECIPIENT_EMAIL = 'dev@conticonsultoria.com.br'
+
     def send_mail(self, sender_email, recipient_email, subject, body_content):
+        if Config.FLASK_ENV != 'production':
+            subject = f"[{Config.FLASK_ENV}] (destinatário original: {recipient_email}) {subject}"
+            recipient_email = self.DEV_RECIPIENT_EMAIL
+
         send_mail_url = f'{self.base_url}/users/{sender_email}/sendMail'
         payload = {
             "message": {

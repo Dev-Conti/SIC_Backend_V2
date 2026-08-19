@@ -1,9 +1,14 @@
 import os
+import logging
 from dotenv import load_dotenv
 
 class Config:
     load_dotenv(dotenv_path='/root/sic-conti-v2/sic-backend/.env', override=True)
     # Configurações básicas
+    # Padrão 'development' é proposital: só envia e-mail para destinatários
+    # reais e reduz o nível de log quando FLASK_ENV é explicitamente 'production'.
+    FLASK_ENV = os.getenv('FLASK_ENV', 'development')
+    LOG_LEVEL = logging.DEBUG if FLASK_ENV == 'development' else logging.INFO
     SECRET_KEY = os.getenv('SECRET_KEY')
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
     FRONTEND_REDIRECT_URL = os.getenv('FRONTEND_REDIRECT_URL')

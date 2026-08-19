@@ -1,4 +1,5 @@
 import os
+import logging
 from flask import Flask, jsonify
 from flask_cors import CORS
 from .config import Config
@@ -24,6 +25,7 @@ load_dotenv(override=True)
 def create_app():
     load_dotenv(override=True)
 
+    logging.basicConfig(level=Config.LOG_LEVEL)
 
     app = Flask(__name__)
     app.config.from_object(Config)
