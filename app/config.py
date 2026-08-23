@@ -49,6 +49,11 @@ class Config:
         "username": os.getenv('DB_USERNAME_PSOFFICE'),
         "password": os.getenv('DB_PASSWORD_PSOFFICE')
     }
+    # Tamanho máximo do pool de conexões com o Psoffice (SQL Server)
+    DB_PSOFFICE_POOL_SIZE = int(os.getenv('DB_PSOFFICE_POOL_SIZE', 5))
+
+    # TTL (segundos) do cache Redis para leituras do Psoffice
+    PSOFFICE_CACHE_TTL_SECONDS = int(os.getenv('PSOFFICE_CACHE_TTL_SECONDS', 600))
 
     STATIC_TOKEN = os.getenv('STATIC_TOKEN')
 

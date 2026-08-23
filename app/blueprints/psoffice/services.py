@@ -1,8 +1,28 @@
 from app.config import Config
-from app.extensions import mongo,db_psoffice
+from app.extensions import mongo, db_psoffice, redis_client
+import json
 import requests
 from datetime import datetime, timedelta
 from app.utils.file_utils import load_file
+
+
+def _cache_get(cache_key):
+    """Lê um valor cacheado no Redis (JSON). Retorna None em cache miss ou se o Redis estiver indisponível."""
+    try:
+        cached = redis_client.client.get(cache_key)
+    except Exception:
+        return None
+    return json.loads(cached) if cached is not None else None
+
+
+def _cache_set(cache_key, value, ttl_seconds=None):
+    """Grava um valor no Redis com TTL. Falha silenciosa se o Redis estiver indisponível
+    (cache é uma otimização, não deve derrubar a resposta)."""
+    ttl = ttl_seconds or Config.PSOFFICE_CACHE_TTL_SECONDS
+    try:
+        redis_client.client.setex(cache_key, ttl, json.dumps(value))
+    except Exception:
+        pass
 
 class PsofficeServices_old:
     def __init__(self):
@@ -70,19 +90,15 @@ class PsofficeServices_old:
                 tipo_de_projeto, 
                 wkf_step_desc,
                 valor 
-            FROM 
+            FROM
                 pso_projetos;
             """
-        db_psoffice.connect()
-        try:
-            results, headers = db_psoffice.execute_query(query)
-            projetos = [dict(zip(headers, row)) for row in results]
-        finally:
-            db_psoffice.close()
-        
+        results, headers = db_psoffice.execute_query(query)
+        projetos = [dict(zip(headers, row)) for row in results]
+
         return projetos
 
-    def get_apontamentos_v2(self, data_inicio, data_fim):        
+    def get_apontamentos_v2(self, data_inicio, data_fim):
         # Garantir que as datas estejam no formato YYYY-MM-DD
         try:
             data_inicio = datetime.strptime(data_inicio, '%Y-%m-%d').strftime('%Y-%m-%d')
@@ -93,18 +109,15 @@ class PsofficeServices_old:
         
         # Carregar a query SQL do arquivo
         query = load_file("get_apontamentos.sql", folder="queries/sql_server")
-        
+
         # Substituir os parâmetros na query
         query = query.replace(":data_inicio", f"'{data_inicio}'").replace(":data_fim", f"'{data_fim}'")
-        
-        # Conectar ao banco de dados e executar a query
-        db_psoffice.connect()
+
         results, headers = db_psoffice.execute_query(query)
-        db_psoffice.close()
-        
+
         # Transformar os resultados em uma lista de dicionários
         apontamentos = [dict(zip(headers, row)) for row in results]
-        
+
         return apontamentos
 
 class PsofficeServices:
@@ -115,22 +128,27 @@ class PsofficeServices:
     def buscar_usuarios(self):        
         # Carregar a query SQL do arquivo
         query = load_file("get_usuarios_psoffice.sql", folder="queries/sql_server")
-                
-        # Conectar ao banco de dados e executar a query
-        db_psoffice.connect()
+
         results, headers = db_psoffice.execute_query(query)
-        db_psoffice.close()
-        
+
         # Transformar os resultados em uma lista de dicionários
         data = [dict(zip(headers, row)) for row in results]
-        
+
         return data
 
     def buscar_centros_resultado(self):
+        cache_key = "psoffice:centros_resultado"
+        cached = _cache_get(cache_key)
+        if cached is not None:
+            return cached
+
         url = f"{self.api_url}/api/v1/centrosresultado/centrosresultado"
         headers = {"Authorization": f"Bearer {self.token}"}
         response = requests.get(url, headers=headers)
-        return response.json()
+        data = response.json()
+
+        _cache_set(cache_key, data)
+        return data
 
     def buscar_pessoas_juridicas(self):
         url = f"{self.api_url}/api/v1/pessoasjuridicas/pessoasjuridicas"
@@ -138,18 +156,21 @@ class PsofficeServices:
         response = requests.get(url, headers=headers)
         return response.json()
 
-    def buscar_projetos(self):        
+    def buscar_projetos(self):
+        cache_key = "psoffice:projetos"
+        cached = _cache_get(cache_key)
+        if cached is not None:
+            return cached
+
         # Carregar a query SQL do arquivo
         query = load_file("get_projetos_psoffice.sql", folder="queries/sql_server")
-        
-        # Conectar ao banco de dados e executar a query
-        db_psoffice.connect()
+
         results, headers = db_psoffice.execute_query(query)
-        db_psoffice.close()
-        
+
         # Transformar os resultados em uma lista de dicionários
         data = [dict(zip(headers, row)) for row in results]
-        
+
+        _cache_set(cache_key, data)
         return data
 
     def buscar_cr_ams(self):
@@ -182,19 +203,15 @@ class PsofficeServices:
                 tipo_de_projeto, 
                 wkf_step_desc,
                 valor 
-            FROM 
+            FROM
                 pso_projetos;
             """
-        db_psoffice.connect()
-        try:
-            results, headers = db_psoffice.execute_query(query)
-            projetos = [dict(zip(headers, row)) for row in results]
-        finally:
-            db_psoffice.close()
-        
+        results, headers = db_psoffice.execute_query(query)
+        projetos = [dict(zip(headers, row)) for row in results]
+
         return projetos
 
-    def buscar_apontamentos_v2(self, data_inicio, data_fim):        
+    def buscar_apontamentos_v2(self, data_inicio, data_fim):
         # Garantir que as datas estejam no formato YYYY-MM-DD
         try:
             data_inicio = datetime.strptime(data_inicio, '%Y-%m-%d').strftime('%Y-%m-%d')
@@ -205,17 +222,14 @@ class PsofficeServices:
         
         # Carregar a query SQL do arquivo
         query = load_file("get_apontamentos_psoffice.sql", folder="queries/sql_server")
-        
+
         # Substituir os parâmetros na query
         query = query.replace(":data_inicio", f"'{data_inicio}'").replace(":data_fim", f"'{data_fim}'")
-        
-        # Conectar ao banco de dados e executar a query
-        db_psoffice.connect()
+
         results, headers = db_psoffice.execute_query(query)
-        db_psoffice.close()
-        
+
         # Transformar os resultados em uma lista de dicionários
         apontamentos = [dict(zip(headers, row)) for row in results]
-        
+
         return apontamentos
 

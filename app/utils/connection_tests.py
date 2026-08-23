@@ -27,9 +27,8 @@ def test_redis_connection():
 def test_db_psoffice_connection():
     """Função para testar a conexão com o banco de dados Psoffice."""
     try:
-        db_psoffice.connect()
+        db_psoffice.test_connection()
         print("Conexão com o banco de dados Psoffice bem-sucedida!")
-        db_psoffice.close()
         return "Conexão com o banco de dados Psoffice bem-sucedida!"
     except Exception as e:
         error_message = f"Erro ao conectar ao banco de dados Psoffice: {e}"
