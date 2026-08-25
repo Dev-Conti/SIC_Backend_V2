@@ -107,6 +107,7 @@ Todas as configurações sensíveis são carregadas via `.env`. O caminho hardco
 | `SECRET_KEY` | Chave secreta do Flask |
 | `JWT_SECRET_KEY` | Chave para assinatura de tokens JWT |
 | `FRONTEND_REDIRECT_URL` | URL do frontend após login |
+| `FRONTEND_BASE_URL` | Origem (raiz) do frontend, usada para montar os links dos e-mails de notificação |
 | `MONGO_URI` | String de conexão do MongoDB |
 | `DEFAULT_DB` | Nome do banco de dados padrão no Mongo |
 | `MSAL_CLIENT_ID` | ID do app registrado no Azure AD |

@@ -31,7 +31,7 @@ def send_notification():
     subject = notification["subject"](contexto)
     body_content = render_template(
         notification["template"],
-        base_url=current_app.config.get("FRONTEND_REDIRECT_URL"),
+        base_url=current_app.config.get("FRONTEND_BASE_URL"),
         **contexto,
     )
 

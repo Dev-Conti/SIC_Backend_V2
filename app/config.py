@@ -12,6 +12,7 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY')
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
     FRONTEND_REDIRECT_URL = os.getenv('FRONTEND_REDIRECT_URL')
+    FRONTEND_BASE_URL = os.getenv('FRONTEND_BASE_URL')
     
     # Configurações do MongoDB
     MONGO_URI = os.getenv('MONGO_URI')
