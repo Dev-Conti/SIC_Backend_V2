@@ -83,13 +83,19 @@ def atualizar_warmup(negocio_id, dados):
         documento_atual = mongo.db.warmup_projetos.find_one(query)
         status_atual = documento_atual.get("status") if documento_atual else None
         if novo_status != status_atual:
-            update["$push"] = {
-                "status_historico": {
-                    "status": novo_status,
-                    "etapa": dados.get("etapa", documento_atual.get("etapa") if documento_atual else None),
-                    "alterado_em": datetime.utcnow(),
-                }
+            entrada_historico = {
+                "status": novo_status,
+                "etapa": dados.get("etapa", documento_atual.get("etapa") if documento_atual else None),
+                "alterado_em": datetime.utcnow(),
             }
+
+            observacao = dados.get("observacao")
+            if observacao:
+                entrada_historico["observacao"] = observacao
+                if dados.get("usuario"):
+                    entrada_historico["usuario"] = dados.get("usuario")
+
+            update["$push"] = {"status_historico": entrada_historico}
 
     resultado = mongo.db.warmup_projetos.update_one(query, update)
     return resultado.modified_count

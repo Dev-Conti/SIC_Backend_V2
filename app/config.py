@@ -8,7 +8,7 @@ class Config:
     # Padrão 'development' é proposital: só envia e-mail para destinatários
     # reais e reduz o nível de log quando FLASK_ENV é explicitamente 'production'.
     FLASK_ENV = os.getenv('FLASK_ENV', 'development')
-    LOG_LEVEL = logging.DEBUG if FLASK_ENV == 'development' else logging.INFO
+    LOG_LEVEL = logging.DEBUG if FLASK_ENV == 'development' else logging.ERROR
     SECRET_KEY = os.getenv('SECRET_KEY')
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
     FRONTEND_REDIRECT_URL = os.getenv('FRONTEND_REDIRECT_URL')
