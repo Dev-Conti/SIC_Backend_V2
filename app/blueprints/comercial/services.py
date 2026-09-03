@@ -6,6 +6,10 @@ import os
 from pymongo import MongoClient
 from app.config import Config
 from app.blueprints.rdstation.services import RdServices, export_deals
+from app.blueprints.warmup.services import (
+    atualizar_warmup as atualizar_warmup_projeto,
+    get_warmup_projetos_collection,
+)
 from app.utils.responses import success_response, error_response
 from app.utils.datetime_util import DatetimeServices
 from flask import current_app
@@ -36,36 +40,90 @@ def atualizar_negociacoes():
 
     return success_response(f"{len(operacoes)} negociações atualizadas ou inseridas no MongoDB.", {"total": len(operacoes)})
 
+def _documento_ganho(win):
+    """Monta o documento padrão de warmup_projetos (etapa 'Ganhos') a partir de
+    uma negociação ganha do RD Station, no mesmo formato usado pelas demais
+    etapas do pipeline."""
+    agora = datetime.utcnow()
+    etapa_inicial = "Ganhos"
+    status_inicial = "Aguardando"
+    organization = win.get("organization") or {}
+    user = win.get("user") or {}
+
+    return {
+        "negocio_id": win.get("id"),
+        "etapa": etapa_inicial,
+        "status": status_inicial,
+        "ganho_em": agora,
+        "rd_closed_at": win.get("closed_at"),
+        "status_historico": [
+            {
+                "status": status_inicial,
+                "etapa": etapa_inicial,
+                "alterado_em": agora,
+            }
+        ],
+        "cliente": {
+            "nome": organization.get("name", ""),
+            "cliente_id": organization.get("id", ""),
+        },
+        "capa_projeto": {
+            "codigo": win.get("name", ""),
+            "nome_vendedor": user.get("name"),
+            "email_vendedor": user.get("email"),
+        },
+        "formacao_preco": {
+            "valor": win.get("amount_total", 0),
+        },
+        "cronograma_execucao": {},
+        "adicionais_projeto": {},
+        "faturamento": {},
+        "observacoes_gerais": [],
+        "responsaveis": {},
+    }
+
+
+def _materializar_ganhos(wins):
+    """Insere em warmup_projetos, com etapa 'Ganhos', os negócios ganhos que
+    ainda não possuem documento correspondente (por negocio_id). Idempotente:
+    negócios já materializados (em qualquer etapa, incluindo Arquivado ou
+    etapas de warmup já iniciado) não são reprocessados."""
+    ids = [w.get("id") for w in wins if w.get("id")]
+    if not ids:
+        return 0
+
+    existentes = mongo.db.warmup_projetos.find(
+        {"negocio_id": {"$in": ids}}, {"negocio_id": 1, "_id": 0}
+    )
+    ids_existentes = {doc["negocio_id"] for doc in existentes}
+
+    novos = [w for w in wins if w.get("id") and w["id"] not in ids_existentes]
+    for win in novos:
+        mongo.db.warmup_projetos.insert_one(_documento_ganho(win))
+
+    return len(novos)
+
+
 def obter_novos_ganhos(days=30):
     """
-    Retorna todas as negociações cujo campo 'win' é True, fechadas nos últimos
-    `days` dias (default 30), e que não estão presentes na coleção 'warmup_projetos'.
+    Sincroniza os negócios ganhos no RD Station (dentro da janela de `days`
+    dias) como etapa "Ganhos" em warmup_projetos, e retorna os documentos
+    atualmente na etapa "Ganhos".
     """
     # Obter o intervalo de datas
     start_date = DatetimeServices.data_anterior_ndias(days)
     end_date = (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d')  # Adiciona um dia ao end_date
 
-    # Obter todas as negociações ganhas (wins)
-    wins = RdServices().obter_negociacoes(win=True, closed_at_period="true", start_date=start_date, end_date=end_date)
+    # Obter as negociações ganhas (wins) dentro da janela
+    wins = RdServices().obter_negociacoes(win=True, closed_at_period="true", start_date=start_date, end_date=end_date) or []
 
     # Filtro defensivo: garante que apenas negócios efetivamente marcados como
     # ganhos no CRM entrem na fila, mesmo que o filtro da API do RD Station falhe.
     wins = [w for w in wins if w.get("win") is True]
 
-    # Extrair os IDs das negociações ganhas
-    win_ids = [win["id"] for win in wins]
+    _materializar_ganhos(wins)
 
-    # Buscar os IDs presentes na coleção 'warmup_projetos'
-    warmup_ids = mongo.db.warmup_projetos.find(
-        {"negocio_id": {"$in": win_ids}},
-        {"negocio_id": 1, "_id": 0}
-    )
-    warmup_ids = {doc["negocio_id"] for doc in warmup_ids}
-
-    # Filtrar os documentos que estão em 'wins' e não estão em 'warmup_projetos'
-    novos_ganhos = [win for win in wins if win["id"] not in warmup_ids]
-
-    return novos_ganhos
+    return get_warmup_projetos_collection(etapa="Ganhos")
 
 
 def deletar_negociacao(negociacao_id):
@@ -83,35 +141,41 @@ def deletar_negociacao(negociacao_id):
 
 def arquivar_negociacao(dados):
     """
-    Arquiva uma negociação na coleção 'warmup_projetos'.
+    Arquiva um registro de Ganhos: atualiza o documento já existente em
+    'warmup_projetos' (por negocio_id) para etapa "Arquivado", em vez de
+    inserir um documento novo.
     """
     try:
         if not dados:
             return error_response("Nenhum dado enviado.")
 
-        # Organizando os dados no formato desejado
-        dados_insert = {
-            "negocio_id": dados.get("id", ""),
-            "name": dados.get("name", ""),
+        negocio_id = dados.get("negocio_id") or dados.get("id")
+        if not negocio_id:
+            return error_response("negocio_id é obrigatório.", 400)
+
+        documento = mongo.db.warmup_projetos.find_one({"negocio_id": negocio_id})
+        if not documento:
+            return error_response("Registro de Ganhos não encontrado.", 404)
+
+        modificados = atualizar_warmup_projeto(negocio_id, {
             "etapa": "Arquivado",
             "status": "Arquivado",
-            "arquivado_em": datetime.utcnow()
-        }
+            "arquivado_em": datetime.utcnow(),
+        })
 
+        if not modificados:
+            return error_response("Não foi possível arquivar o registro.", 500)
 
-        # Insere os dados na coleção
-        resultado = mongo.db.warmup_projetos.insert_one(dados_insert)
-
-
-        # Resposta com o ID do documento inserido
-        return success_response("Dados inseridos com sucesso.", {"document_id": str(resultado.inserted_id)})
+        return success_response("Negociação arquivada com sucesso.", {"negocio_id": negocio_id})
 
     except Exception as e:
         return error_response(f"Erro ao arquivar dados: {e}")
 
 def iniciar_warmup(dados):
     """
-    Processa os dados para iniciar o warmup comercial.
+    Avança um registro de Ganhos para Warmup Comercial: atualiza o documento
+    já existente em 'warmup_projetos' (por negocio_id) definindo o
+    responsável comercial, em vez de inserir um documento novo.
     """
     try:
         current_app.logger.debug(f"Payload recebido: {dados}")
@@ -126,48 +190,33 @@ def iniciar_warmup(dados):
         if not responsavel_nome or not responsavel_email:
             return error_response("Nome e email do responsável comercial são obrigatórios.", 400)
 
-        # Organizando os dados no formato desejado
-        dados_insert = {
-            "negocio_id": dados.get("negocio_id", ""),
+        negocio_id = dados.get("negocio_id", "")
+        documento = mongo.db.warmup_projetos.find_one({"negocio_id": negocio_id})
+        if not documento:
+            return error_response("Registro de Ganhos não encontrado.", 404)
+
+        atualizacao = {
             "etapa": "Warmup Comercial",
             "status": "Aguardando",
             "inicio_warmup": datetime.utcnow(),
-            "cliente": {
-                "nome": dados.get("cliente_nome", ""),
-                "cliente_id": dados.get("cliente_id", "")
-            },
-            "capa_projeto": {
-                "codigo": dados.get("codigo_projeto", ""),
-                "nome_vendedor": dados.get('nome_vendedor'),
-                "email_vendedor": dados.get('email_vendedor')
-            },
-            "formacao_preco": {
-                "valor": dados.get("valor", ""),
-            },
-            "cronograma_execucao": {},
-            "adicionais_projeto": {},
-            "faturamento": {},
-            "observacoes_gerais": [],
             "responsaveis": {
                 "responsavel_comercial": {
                     "nome": responsavel_nome,
-                    "email": responsavel_email
+                    "email": responsavel_email,
                 }
-            }
+            },
         }
 
-        current_app.logger.debug(f"Dados organizados para inserção: {dados_insert}")
+        current_app.logger.debug(f"Dados organizados para atualização: {atualizacao}")
 
-        # Obtém a coleção onde os dados serão inseridos
-        collection = mongo.db.warmup_projetos
+        modificados = atualizar_warmup_projeto(negocio_id, atualizacao)
 
-        # Insere os dados na coleção
-        resultado = collection.insert_one(dados_insert)
+        current_app.logger.debug(f"Resultado da atualização: {modificados}")
 
-        current_app.logger.debug(f"Resultado da inserção: {resultado.inserted_id}")
+        if not modificados:
+            return error_response("Não foi possível atualizar o registro.", 500)
 
-        # Resposta com o ID do documento inserido
-        return success_response("Dados inseridos com sucesso.", {"document_id": str(resultado.inserted_id)})
+        return success_response("Registro avançado para Warmup Comercial.", {"negocio_id": negocio_id})
 
     except Exception as e:
         current_app.logger.error(f"Erro ao processar dados: {str(e)}")

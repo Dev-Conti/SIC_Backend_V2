@@ -4,6 +4,7 @@ from datetime import datetime
 from app.utils.decorators import require_auth  # Use o nome correto da função
 from app.utils.validators import validate_tokens  # Use o nome correto da função
 from app.utils.responses import success_response, error_response
+from app.utils.serialization import serialize_mongo_documents
 from . import comercial_bp
 from .services import obter_novos_ganhos, atualizar_negociacoes, deletar_negociacao, arquivar_negociacao, iniciar_warmup
 
@@ -14,13 +15,14 @@ def psoffice_users():
 
 @comercial_bp.route('/ganhos', methods=['GET'])
 def novas_negociacoes():
-    """Endpoint que retorna as novas negociações."""
+    """Endpoint que sincroniza e retorna os registros na etapa "Ganhos"."""
     # Obtém o parâmetro 'days' da query string, com valor padrão de 30
     days = request.args.get('days', default=30, type=int)
 
-    # Chama a função com o parâmetro 'days'
-    novas_negociacoes = obter_novos_ganhos(days=days)
-    return jsonify(novas_negociacoes)
+    # Sincroniza (e faz o backfill) e retorna os documentos na etapa "Ganhos"
+    documentos = obter_novos_ganhos(days=days)
+    data = serialize_mongo_documents(documentos)
+    return jsonify(data)
 
 @comercial_bp.route('/atualizar-negociacoes', methods=['GET'])
 def atualizar_negociacoes_route():
