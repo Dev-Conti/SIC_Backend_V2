@@ -220,6 +220,9 @@ Todas as configurações sensíveis são carregadas via `.env`. O caminho hardco
 - `obter_empresas()` — organizações do CRM
 - `obter_pipelines()` — funis de vendas
 - `obter_negociacoes(win, closed_at_period, start_date, end_date)` — com filtros
+- `buscar_deal_por_id(negocio_id)` — busca pontual de um único deal (`GET /deals/{id}`), sem paginação; usado pela reconciliação de campos (ver 6.6)
+
+**Função utilitária:** `reconciliar_campos_rd(documento_atual, deal_rd)` — compara um documento de `warmup_projetos` com o deal correspondente do RD Station e retorna um `$set` (dot-notation) restrito à allowlist de campos que o RD Station é dono: `capa_projeto.codigo`, `capa_projeto.nome_vendedor`, `capa_projeto.email_vendedor`, `cliente.nome`, `cliente.cliente_id`, `formacao_preco.valor`, `rd_closed_at`. Retorna `None` quando nada diverge. Não é um método de `RdServices` (não faz I/O) e é reaproveitada tanto pelo sync de Ganhos (6.6) quanto por qualquer mecanismo futuro (ex.: webhook) que precise da mesma allowlist.
 
 ---
 
@@ -233,6 +236,10 @@ Todas as configurações sensíveis são carregadas via `.env`. O caminho hardco
 | POST | `/iniciar-warmup` | Cria registro inicial de warmup | JWT |
 
 **Coleção MongoDB:** `negociacoes`
+
+**Reconciliação de campos RD-owned na etapa "Ganhos"** (`obter_novos_ganhos`, chamada por `GET /comercial/ganhos`): além de materializar novos ganhos, o backend reconcilia os campos RD-owned (ver `reconciliar_campos_rd` em 6.5) de **todo** documento em `warmup_projetos` com `etapa: "Ganhos"` — corrigindo, por exemplo, um projeto renomeado no RD Station depois de já ter sido sincronizado. Roda no máximo a cada 30 minutos (`_RECONCILIACAO_GANHOS_THROTTLE_MINUTOS`), controlado por um marcador em `system_flags` (`_id: "ganhos_reconciliacao_ultima_execucao"`, campo `executado_em`) — chamadas dentro dessa janela não repetem nenhuma busca ao RD Station. Busca cada `negocio_id` individualmente (`GET /deals/{id}`, via `buscar_deal_por_id`), não uma listagem — cobre todo o backlog de Ganhos, sem depender da janela de `days` usada para detectar novos ganhos. Uma falha ao buscar um `negocio_id` específico é logada e não interrompe os demais. Só a etapa `"Ganhos"` é afetada; nenhuma outra etapa do pipeline é tocada por este mecanismo.
+
+Avaliados e **adiados** (ver `openspec/changes/rd-station-reconciliar-alteracoes/design.md` - Future Work): webhook do RD Station (`crm_deal_updated`) como alternativa de menor latência, e extensão da reconciliação a etapas além de "Ganhos".
 
 ---
 
@@ -348,6 +355,7 @@ Armazenadas em `app/queries/sql_server/` e carregadas dinamicamente pelo `file_u
 | `negociacoes` | comercial | Negociações sincronizadas do RD Station |
 | `warmup_projetos` | warmup / comercial | Projetos em processo de warmup |
 | `chamados` | suporte | Chamados de suporte internos |
+| `system_flags` | comercial | Marcadores internos por `_id` (ex.: `ganhos_reconciliacao_ultima_execucao`, throttle da reconciliação de Ganhos) |
 
 ### Redis
 Usado exclusivamente para armazenar tokens de sessão OAuth2:
