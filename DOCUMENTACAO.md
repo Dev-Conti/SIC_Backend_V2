@@ -214,15 +214,15 @@ Todas as configurações sensíveis são carregadas via `.env`. O caminho hardco
 |---|---|---|---|
 | GET | `/deals` | Exporta todas as negociações | JWT |
 | GET | `/deals-proposta-comercial` | Negociações em etapa de proposta | JWT |
+| POST | `/webhook/deal-updated` | Recebe o webhook `crm_deal_updated` do RD Station e reconcilia o negócio (etapa "Ganhos") | Token estático na query string (`?token=`) |
 
 **Serviço:** `RdServices`  
 **Métodos internos:**
 - `obter_empresas()` — organizações do CRM
 - `obter_pipelines()` — funis de vendas
 - `obter_negociacoes(win, closed_at_period, start_date, end_date)` — com filtros
-- `buscar_deal_por_id(negocio_id)` — busca pontual de um único deal (`GET /deals/{id}`), sem paginação; usado pela reconciliação de campos (ver 6.6)
 
-**Função utilitária:** `reconciliar_campos_rd(documento_atual, deal_rd)` — compara um documento de `warmup_projetos` com o deal correspondente do RD Station e retorna um `$set` (dot-notation) restrito à allowlist de campos que o RD Station é dono: `capa_projeto.codigo`, `capa_projeto.nome_vendedor`, `capa_projeto.email_vendedor`, `cliente.nome`, `cliente.cliente_id`, `formacao_preco.valor`, `rd_closed_at`. Retorna `None` quando nada diverge. Não é um método de `RdServices` (não faz I/O) e é reaproveitada tanto pelo sync de Ganhos (6.6) quanto por qualquer mecanismo futuro (ex.: webhook) que precise da mesma allowlist.
+**Função utilitária:** `reconciliar_campos_rd(documento_atual, deal_rd)` — compara um documento de `warmup_projetos` com o deal correspondente do RD Station e retorna um `$set` (dot-notation) restrito à allowlist de campos que o RD Station é dono: `capa_projeto.codigo`, `capa_projeto.nome_vendedor`, `capa_projeto.email_vendedor`, `cliente.nome`, `cliente.cliente_id`, `formacao_preco.valor`, `rd_closed_at`. Retorna `None` quando nada diverge. Não é um método de `RdServices` (não faz I/O) e é usada tanto pelo webhook quanto pela reconciliação pela listagem de Ganhos (6.6), via o caminho de escrita único `aplicar_reconciliacao`.
 
 ---
 
@@ -237,9 +237,22 @@ Todas as configurações sensíveis são carregadas via `.env`. O caminho hardco
 
 **Coleção MongoDB:** `negociacoes`
 
-**Reconciliação de campos RD-owned na etapa "Ganhos"** (`obter_novos_ganhos`, chamada por `GET /comercial/ganhos`): além de materializar novos ganhos, o backend reconcilia os campos RD-owned (ver `reconciliar_campos_rd` em 6.5) de **todo** documento em `warmup_projetos` com `etapa: "Ganhos"` — corrigindo, por exemplo, um projeto renomeado no RD Station depois de já ter sido sincronizado. Roda no máximo a cada 30 minutos (`_RECONCILIACAO_GANHOS_THROTTLE_MINUTOS`), controlado por um marcador em `system_flags` (`_id: "ganhos_reconciliacao_ultima_execucao"`, campo `executado_em`) — chamadas dentro dessa janela não repetem nenhuma busca ao RD Station. Busca cada `negocio_id` individualmente (`GET /deals/{id}`, via `buscar_deal_por_id`), não uma listagem — cobre todo o backlog de Ganhos, sem depender da janela de `days` usada para detectar novos ganhos. Uma falha ao buscar um `negocio_id` específico é logada e não interrompe os demais. Só a etapa `"Ganhos"` é afetada; nenhuma outra etapa do pipeline é tocada por este mecanismo.
+**Webhook do RD Station (`crm_deal_updated`)** — mecanismo principal de reconciliação: `POST /rdstation/webhook/deal-updated?token=<STATIC_TOKEN>` reconcilia os campos RD-owned (ver `reconciliar_campos_rd` em 6.5) do negócio correspondente em segundos — corrigindo, por exemplo, um projeto renomeado no RD Station depois de já ter sido sincronizado. Só afeta a etapa "Ganhos"; evento de negócio ainda não materializado é ignorado (a materialização posterior já lê o dado atual). Autenticado por token na query string (o cadastro de webhook do RD só aceita `event_type`, `http_method` e `url` — sem header customizado); rejeita com 401 se o token faltar/estiver errado ou se `STATIC_TOKEN` não estiver configurado no servidor. Responde 200 a qualquer requisição autenticada (eventos ignorados ou falhas internas — estas logadas — incluídos), pois o RD só exige 2xx e pode desativar webhooks que falham repetidamente.
 
-Avaliados e **adiados** (ver `openspec/changes/rd-station-reconciliar-alteracoes/design.md` - Future Work): webhook do RD Station (`crm_deal_updated`) como alternativa de menor latência, e extensão da reconciliação a etapas além de "Ganhos".
+**Rede de segurança — reconciliação pela listagem da janela** (`_materializar_ganhos`, chamada por `GET /comercial/ganhos`): os deals ganhos que o endpoint já lista na janela de `days` dias (para materializar novos ganhos) também reconciliam os documentos correspondentes que já estão em `etapa: "Ganhos"`. Recupera eventos que o webhook perdeu (SIC fora do ar, falha interna, webhook desativado), sem nenhuma chamada extra ao RD Station, throttle ou marcador — o custo não cresce com o número de negócios acumulados em "Ganhos". Não há conferência individual (`GET /deals/{id}`) de todo o backlog: essa abordagem, com throttle de 30 minutos, foi removida porque o custo crescia linearmente com o backlog e estouraria o timeout do request e o limite de 120 req/min do RD.
+
+**Limitação conhecida:** um evento de webhook perdido para um negócio ganho há mais de `days` dias não é recuperado automaticamente — só na próxima edição do negócio no RD (que dispara novo webhook). Trabalho futuro: script manual pontual para conferir todo o backlog de "Ganhos" (ver `openspec/changes/rd-station-reconciliar-alteracoes/design.md` - Future Work).
+
+Cadastro do webhook na conta do RD Station (uma vez, **depois** do deploy):
+```bash
+python scripts/registrar_webhook_rd.py --url-base https://<backend-producao>            # dry-run
+STATIC_TOKEN=<valor-de-producao> python scripts/registrar_webhook_rd.py --url-base https://<backend-producao> --confirm
+```
+O script é idempotente, exige HTTPS e mascara o token na saída. Para conferir: `GET https://crm.rdstation.com/api/v1/webhooks?token=<TOKEN_RD>`; para desligar: `DELETE /webhooks/{uuid}` na mesma API. Atenção: o token vai na URL cadastrada e pode aparecer em logs de acesso — use um `STATIC_TOKEN` dedicado e longo.
+
+Avaliada e **adiada** (ver `openspec/changes/rd-station-reconciliar-alteracoes/design.md` - Future Work): extensão da reconciliação a etapas além de "Ganhos".
+
+Regra importante de `reconciliar_campos_rd`: um valor ausente no deal do RD nunca sobrescreve um dado existente — o payload do webhook (assim como `GET /deals/{id}`) não traz `user.email` (só a listagem traz), e sem essa regra o e-mail do vendedor seria apagado.
 
 ---
 
@@ -355,7 +368,6 @@ Armazenadas em `app/queries/sql_server/` e carregadas dinamicamente pelo `file_u
 | `negociacoes` | comercial | Negociações sincronizadas do RD Station |
 | `warmup_projetos` | warmup / comercial | Projetos em processo de warmup |
 | `chamados` | suporte | Chamados de suporte internos |
-| `system_flags` | comercial | Marcadores internos por `_id` (ex.: `ganhos_reconciliacao_ultima_execucao`, throttle da reconciliação de Ganhos) |
 
 ### Redis
 Usado exclusivamente para armazenar tokens de sessão OAuth2:

@@ -5,7 +5,7 @@ import json
 import os
 from pymongo import MongoClient
 from app.config import Config
-from app.blueprints.rdstation.services import RdServices, export_deals, reconciliar_campos_rd
+from app.blueprints.rdstation.services import RdServices, export_deals, aplicar_reconciliacao
 from app.blueprints.warmup.services import (
     atualizar_warmup as atualizar_warmup_projeto,
     get_warmup_projetos_collection,
@@ -87,7 +87,12 @@ def _materializar_ganhos(wins):
     """Insere em warmup_projetos, com etapa 'Ganhos', os negócios ganhos que
     ainda não possuem documento correspondente (por negocio_id). Idempotente:
     negócios já materializados (em qualquer etapa, incluindo Arquivado ou
-    etapas de warmup já iniciado) não são reprocessados."""
+    etapas de warmup já iniciado) não são reinseridos.
+
+    Os que já estão na etapa "Ganhos" têm os campos RD-owned reconciliados
+    com o próprio win da listagem (via aplicar_reconciliacao) - rede de
+    segurança para eventos perdidos pelo webhook, sem nenhuma chamada extra
+    ao RD Station."""
     ids = [w.get("id") for w in wins if w.get("id")]
     if not ids:
         return 0
@@ -101,76 +106,21 @@ def _materializar_ganhos(wins):
     for win in novos:
         mongo.db.warmup_projetos.insert_one(_documento_ganho(win))
 
-    return len(novos)
-
-
-_RECONCILIACAO_GANHOS_THROTTLE_MINUTOS = 30
-_RECONCILIACAO_GANHOS_FLAG_ID = "ganhos_reconciliacao_ultima_execucao"
-
-
-def reconciliar_ganhos_pendentes():
-    """Reconcilia os campos RD-owned (allowlist de reconciliar_campos_rd) de
-    todo documento em warmup_projetos com etapa "Ganhos", buscando cada
-    negocio_id individualmente no RD Station (GET /deals/{id}).
-
-    Roda no máximo uma vez a cada _RECONCILIACAO_GANHOS_THROTTLE_MINUTOS
-    minutos: um marcador em system_flags (por _id) registra a última
-    execução, e uma chamada dentro dessa janela não repete nenhuma busca ao
-    RD Station - só a materialização de novos ganhos (já feita antes desta
-    função) continua acontecendo normalmente.
-
-    Uma falha ao buscar/reconciliar um negocio_id específico (ex.: deal
-    excluído no RD Station) é logada e não interrompe o processamento dos
-    demais documentos.
-    """
+    wins_por_id = {w["id"]: w for w in wins if w.get("id")}
     agora = datetime.utcnow()
-    marcador = mongo.db.system_flags.find_one({"_id": _RECONCILIACAO_GANHOS_FLAG_ID})
-    executado_em = marcador.get("executado_em") if marcador else None
+    for documento in mongo.db.warmup_projetos.find({"negocio_id": {"$in": ids}, "etapa": "Ganhos"}):
+        aplicar_reconciliacao(documento, wins_por_id[documento["negocio_id"]], agora)
 
-    if executado_em is not None and (agora - executado_em) < timedelta(minutes=_RECONCILIACAO_GANHOS_THROTTLE_MINUTOS):
-        return 0
-
-    rd_services = RdServices()
-    reconciliados = 0
-
-    for documento in mongo.db.warmup_projetos.find({"etapa": "Ganhos"}):
-        negocio_id = documento.get("negocio_id")
-        if not negocio_id:
-            continue
-
-        try:
-            deal = rd_services.buscar_deal_por_id(negocio_id)
-        except Exception as e:
-            print(f"Erro ao buscar negócio {negocio_id} para reconciliação: {e}")
-            continue
-
-        if deal is None:
-            # Falha na busca (deal excluído, erro de rede, etc.) - já logado
-            # dentro de buscar_deal_por_id. Segue para o próximo negócio.
-            continue
-
-        alteracoes = reconciliar_campos_rd(documento, deal)
-        if alteracoes:
-            alteracoes["rd_reconciliado_em"] = agora
-            mongo.db.warmup_projetos.update_one({"negocio_id": negocio_id}, {"$set": alteracoes})
-            reconciliados += 1
-
-    mongo.db.system_flags.update_one(
-        {"_id": _RECONCILIACAO_GANHOS_FLAG_ID},
-        {"$set": {"executado_em": agora}},
-        upsert=True,
-    )
-
-    return reconciliados
+    return len(novos)
 
 
 def obter_novos_ganhos(days=30):
     """
     Sincroniza os negócios ganhos no RD Station (dentro da janela de `days`
     dias) como etapa "Ganhos" em warmup_projetos, reconcilia os campos
-    RD-owned de todo o backlog de Ganhos (com throttle - ver
-    reconciliar_ganhos_pendentes), e retorna os documentos atualmente na
-    etapa "Ganhos".
+    RD-owned dos que já estão em "Ganhos" com os dados dessa mesma listagem
+    (ver _materializar_ganhos), e retorna os documentos atualmente na etapa
+    "Ganhos".
     """
     # Obter o intervalo de datas
     start_date = DatetimeServices.data_anterior_ndias(days)
@@ -184,8 +134,6 @@ def obter_novos_ganhos(days=30):
     wins = [w for w in wins if w.get("win") is True]
 
     _materializar_ganhos(wins)
-
-    reconciliar_ganhos_pendentes()
 
     return get_warmup_projetos_collection(etapa="Ganhos")
 

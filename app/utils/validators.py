@@ -1,3 +1,4 @@
+import hmac
 from functools import wraps
 from flask import request, jsonify
 import jwt
@@ -66,6 +67,25 @@ def validate_static_token(f):
             return jsonify({"error": "nao autorizado"}), 401
 
         logger.info("Token estático validado com sucesso")
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+def validate_static_token_query(f):
+    """Variante de `validate_static_token` para chamadores que não conseguem
+    enviar headers customizados (ex.: webhook do RD Station, cujo cadastro só
+    aceita `event_type`, `http_method` e `url`): o token vai na query string
+    (`?token=...`) da própria URL cadastrada."""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        token = request.args.get('token')
+
+        # Sem STATIC_TOKEN configurado (None/vazio), `None == None` deixaria
+        # passar qualquer requisição sem token - rejeita explicitamente.
+        if not STATIC_TOKEN or not token or not hmac.compare_digest(str(token), str(STATIC_TOKEN)):
+            logger.warning("Token estático (query string) ausente ou inválido")
+            return jsonify({"error": "nao autorizado"}), 401
+
         return f(*args, **kwargs)
 
     return decorated_function

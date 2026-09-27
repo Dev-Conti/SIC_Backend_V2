@@ -141,6 +141,31 @@ class TestReconciliarCamposRd(unittest.TestCase):
 
         self.assertEqual(resultado, {"capa_projeto.codigo": "Nome Novo"})
 
+    def test_deal_sem_email_do_vendedor_nao_apaga_email_existente(self):
+        # Formato real de GET /deals/{id}: `user` traz só _id/id/name, sem
+        # email (a listagem GET /deals é que traz). Regressão: a primeira
+        # versão gravava email_vendedor=None em toda reconciliação.
+        deal = self._deal(user={"_id": "u1", "id": "u1", "name": "Vendedor Atualizado"})
+        documento = self._documento()
+
+        resultado = self.services.reconciliar_campos_rd(documento, deal)
+
+        self.assertNotIn("capa_projeto.email_vendedor", resultado)
+        self.assertEqual(resultado["capa_projeto.nome_vendedor"], "Vendedor Atualizado")
+
+    def test_campos_ausentes_no_deal_nunca_sobrescrevem_dados_existentes(self):
+        deal = {"id": "NEG-1"}  # deal sem nenhum dos campos da allowlist
+
+        resultado = self.services.reconciliar_campos_rd(self._documento(), deal)
+
+        self.assertIsNone(resultado)
+
+    def test_valor_zero_no_rd_e_um_valor_valido(self):
+        # 0 não é "ausente": um deal com amount_total 0 deve atualizar o valor.
+        resultado = self.services.reconciliar_campos_rd(self._documento(), self._deal(amount_total=0))
+
+        self.assertEqual(resultado["formacao_preco.valor"], 0)
+
 
 if __name__ == "__main__":
     unittest.main()

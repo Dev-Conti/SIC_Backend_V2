@@ -99,17 +99,11 @@ class FakeCollection:
 class FakeRdServices:
     """Substitui RdServices: `chamadas` registra os argumentos de cada
     chamada; retorna `wins_janela` (sincronização pela janela de `days`).
-
-    `deals_por_id` simula o resultado de `GET /deals/{id}` usado pela
-    reconciliação: cada chamada a `buscar_deal_por_id` é registrada em
-    `chamadas_deal_por_id`, e retorna `deals_por_id.get(negocio_id)` (que é
-    `None`, simulando falha/deal não encontrado, quando o id não foi
-    registrado no dict pelo teste)."""
+    Só expõe `obter_negociacoes` - qualquer outra chamada ao RD Station
+    (ex.: busca individual de deal) falharia com AttributeError."""
 
     chamadas = []
     wins_janela = []
-    deals_por_id = {}
-    chamadas_deal_por_id = []
 
     def obter_negociacoes(self, win=None, closed_at_period=None, start_date=None, end_date=None):
         FakeRdServices.chamadas.append({
@@ -117,10 +111,6 @@ class FakeRdServices:
             "start_date": start_date, "end_date": end_date,
         })
         return list(FakeRdServices.wins_janela)
-
-    def buscar_deal_por_id(self, negocio_id):
-        FakeRdServices.chamadas_deal_por_id.append(negocio_id)
-        return FakeRdServices.deals_por_id.get(negocio_id)
 
 
 def _carregar_services_com_stubs():
@@ -221,8 +211,6 @@ class TestGanhosEtapa(unittest.TestCase):
         )
         FakeRdServices.chamadas = []
         FakeRdServices.wins_janela = []
-        FakeRdServices.deals_por_id = {}
-        FakeRdServices.chamadas_deal_por_id = []
 
     def _win(self, id_, name="Projeto X", closed_at="2026-08-15", amount_total=1000):
         return {
@@ -363,9 +351,11 @@ class TestFakeCollectionDotNotation(unittest.TestCase):
         self.assertEqual(doc["capa_projeto"]["gerente_projeto"]["nome"], "Gerente X")
 
 
-class TestReconciliacaoGanhos(unittest.TestCase):
-    """Cobre as tarefas 2.1, 2.2 e 2.3 de
-    openspec/changes/rd-station-reconciliar-alteracoes/tasks.md."""
+class TestReconciliacaoPelaListagem(unittest.TestCase):
+    """Cobre as tarefas 2.3 e 2.4 de
+    openspec/changes/rd-station-reconciliar-alteracoes/tasks.md: negócios já
+    materializados em "Ganhos" são reconciliados com os wins da listagem da
+    janela, sem nenhuma chamada extra ao RD Station."""
 
     def setUp(self):
         self.services, self.fake_mongo = _carregar_services_com_stubs()
@@ -375,133 +365,199 @@ class TestReconciliacaoGanhos(unittest.TestCase):
         )
         FakeRdServices.chamadas = []
         FakeRdServices.wins_janela = []
-        FakeRdServices.deals_por_id = {}
-        FakeRdServices.chamadas_deal_por_id = []
 
-    def _deal(self, id_, name="Nome Atualizado", amount_total=5000, closed_at="2026-09-18"):
+    def _win(self, id_, name="Nome Atualizado"):
         return {
             "id": id_,
             "name": name,
-            "amount_total": amount_total,
-            "closed_at": closed_at,
-            "organization": {"id": "org-1", "name": "Cliente Atualizado"},
-            "user": {"name": "Vendedor Atualizado", "email": "vendedor@conticonsultoria.com.br"},
+            "win": True,
+            "amount_total": 5000,
+            "closed_at": "2026-09-18",
+            "organization": {"id": "org-1", "name": "Cliente X"},
+            "user": {"name": "Vendedor X", "email": "vendedor@conticonsultoria.com.br"},
         }
 
-    # --- 2.1: marcador ausente/expirado dispara a reconciliação ---
-
-    def test_marcador_ausente_dispara_reconciliacao_e_cria_marcador(self):
+    def _inserir(self, negocio_id, etapa="Ganhos", codigo="Nome Antigo"):
         self.fake_mongo.db.warmup_projetos.insert_one({
-            "negocio_id": "NEG-1", "etapa": "Ganhos",
-            "capa_projeto": {"codigo": "Nome Antigo"},
+            "negocio_id": negocio_id, "etapa": etapa,
+            "capa_projeto": {"codigo": codigo, "gerente_projeto": {"nome": "Gerente Y"}},
         })
-        FakeRdServices.deals_por_id = {"NEG-1": self._deal("NEG-1")}
 
-        reconciliados = self.services.reconciliar_ganhos_pendentes()
+    def _doc(self, negocio_id):
+        return self.fake_mongo.db.warmup_projetos.find_one({"negocio_id": negocio_id})
 
-        self.assertEqual(reconciliados, 1)
-        doc = self.fake_mongo.db.warmup_projetos.find_one({"negocio_id": "NEG-1"})
-        self.assertEqual(doc["capa_projeto"]["codigo"], "Nome Atualizado")
-        self.assertIn("rd_reconciliado_em", doc)
+    # --- 2.3: ganho já materializado em "Ganhos" é reconciliado ---
 
-        marcador = self.fake_mongo.db.system_flags.find_one({"_id": "ganhos_reconciliacao_ultima_execucao"})
-        self.assertIsNotNone(marcador)
-        self.assertIn("executado_em", marcador)
-
-    def test_marcador_expirado_dispara_reconciliacao_novamente(self):
-        self.fake_mongo.db.warmup_projetos.insert_one({
-            "negocio_id": "NEG-1", "etapa": "Ganhos",
-            "capa_projeto": {"codigo": "Nome Antigo"},
-        })
-        self.fake_mongo.db.system_flags.insert_one({
-            "_id": "ganhos_reconciliacao_ultima_execucao",
-            "executado_em": datetime.utcnow() - timedelta(minutes=31),
-        })
-        FakeRdServices.deals_por_id = {"NEG-1": self._deal("NEG-1")}
-
-        reconciliados = self.services.reconciliar_ganhos_pendentes()
-
-        self.assertEqual(reconciliados, 1)
-        self.assertEqual(FakeRdServices.chamadas_deal_por_id, ["NEG-1"])
-
-    # --- 2.2: dentro da janela não repete as buscas ---
-
-    def test_dentro_da_janela_nao_repete_buscas(self):
-        self.fake_mongo.db.warmup_projetos.insert_one({
-            "negocio_id": "NEG-1", "etapa": "Ganhos",
-            "capa_projeto": {"codigo": "Nome Antigo"},
-        })
-        self.fake_mongo.db.system_flags.insert_one({
-            "_id": "ganhos_reconciliacao_ultima_execucao",
-            "executado_em": datetime.utcnow() - timedelta(minutes=5),
-        })
-        FakeRdServices.deals_por_id = {"NEG-1": self._deal("NEG-1")}
-
-        reconciliados = self.services.reconciliar_ganhos_pendentes()
-
-        self.assertEqual(reconciliados, 0)
-        self.assertEqual(FakeRdServices.chamadas_deal_por_id, [])
-        doc = self.fake_mongo.db.warmup_projetos.find_one({"negocio_id": "NEG-1"})
-        self.assertEqual(doc["capa_projeto"]["codigo"], "Nome Antigo")
-
-    # --- 2.3: falha em um negócio não interrompe os demais ---
-
-    def test_falha_em_um_negocio_nao_interrompe_os_demais(self):
-        self.fake_mongo.db.warmup_projetos.insert_one({
-            "negocio_id": "NEG-FALHA", "etapa": "Ganhos",
-            "capa_projeto": {"codigo": "Nome Antigo"},
-        })
-        self.fake_mongo.db.warmup_projetos.insert_one({
-            "negocio_id": "NEG-OK", "etapa": "Ganhos",
-            "capa_projeto": {"codigo": "Nome Antigo"},
-        })
-        # NEG-FALHA não é registrado em deals_por_id - FakeRdServices simula
-        # a falha retornando None, como o real buscar_deal_por_id faria se o
-        # deal tivesse sido excluído no RD Station.
-        FakeRdServices.deals_por_id = {"NEG-OK": self._deal("NEG-OK")}
-
-        reconciliados = self.services.reconciliar_ganhos_pendentes()
-
-        self.assertEqual(reconciliados, 1)
-        self.assertEqual(set(FakeRdServices.chamadas_deal_por_id), {"NEG-FALHA", "NEG-OK"})
-
-        doc_falha = self.fake_mongo.db.warmup_projetos.find_one({"negocio_id": "NEG-FALHA"})
-        self.assertEqual(doc_falha["capa_projeto"]["codigo"], "Nome Antigo")
-        doc_ok = self.fake_mongo.db.warmup_projetos.find_one({"negocio_id": "NEG-OK"})
-        self.assertEqual(doc_ok["capa_projeto"]["codigo"], "Nome Atualizado")
-
-    # --- escopo restrito à etapa Ganhos ---
-
-    def test_documento_fora_da_etapa_ganhos_nao_e_afetado(self):
-        self.fake_mongo.db.warmup_projetos.insert_one({
-            "negocio_id": "NEG-1", "etapa": "Warmup Comercial",
-            "capa_projeto": {"codigo": "Nome Antigo"},
-        })
-        FakeRdServices.deals_por_id = {"NEG-1": self._deal("NEG-1")}
-
-        self.services.reconciliar_ganhos_pendentes()
-
-        self.assertEqual(FakeRdServices.chamadas_deal_por_id, [])
-        doc = self.fake_mongo.db.warmup_projetos.find_one({"negocio_id": "NEG-1"})
-        self.assertEqual(doc["capa_projeto"]["codigo"], "Nome Antigo")
-
-    # --- 2.4: integração via obter_novos_ganhos ---
-
-    def test_obter_novos_ganhos_dispara_reconciliacao_do_backlog(self):
-        # Ganho antigo, já materializado, fora da janela de `days` de wins
-        # (não retornado por obter_negociacoes) - só a reconciliação
-        # independente de janela deve alcançá-lo.
-        self.fake_mongo.db.warmup_projetos.insert_one({
-            "negocio_id": "NEG-ANTIGO", "etapa": "Ganhos",
-            "capa_projeto": {"codigo": "Nome Antigo"},
-        })
-        FakeRdServices.wins_janela = []
-        FakeRdServices.deals_por_id = {"NEG-ANTIGO": self._deal("NEG-ANTIGO")}
+    def test_ganho_existente_na_janela_e_reconciliado(self):
+        self._inserir("NEG-1")
+        FakeRdServices.wins_janela = [self._win("NEG-1")]
 
         self.services.obter_novos_ganhos(days=30)
 
-        doc = self.fake_mongo.db.warmup_projetos.find_one({"negocio_id": "NEG-ANTIGO"})
+        doc = self._doc("NEG-1")
         self.assertEqual(doc["capa_projeto"]["codigo"], "Nome Atualizado")
+        self.assertIn("rd_reconciliado_em", doc)
+        self.assertEqual(len(self.fake_mongo.db.warmup_projetos.find({"negocio_id": "NEG-1"})), 1)
+
+    def test_sem_diferenca_nao_grava_rd_reconciliado_em(self):
+        FakeRdServices.wins_janela = [self._win("NEG-1")]
+        self.services.obter_novos_ganhos(days=30)  # materializa
+        self.services.obter_novos_ganhos(days=30)  # reconcilia sem diferença
+
+        self.assertNotIn("rd_reconciliado_em", self._doc("NEG-1"))
+
+    # --- 2.4: escopo ---
+
+    def test_documento_em_outra_etapa_nao_e_alterado(self):
+        self._inserir("NEG-1", etapa="Warmup Comercial")
+        FakeRdServices.wins_janela = [self._win("NEG-1")]
+
+        self.services.obter_novos_ganhos(days=30)
+
+        doc = self._doc("NEG-1")
+        self.assertEqual(doc["capa_projeto"]["codigo"], "Nome Antigo")
+        self.assertNotIn("rd_reconciliado_em", doc)
+
+    def test_ganho_fora_da_listagem_nao_e_alterado(self):
+        self._inserir("NEG-ANTIGO")
+        FakeRdServices.wins_janela = [self._win("NEG-1")]
+
+        self.services.obter_novos_ganhos(days=30)
+
+        doc = self._doc("NEG-ANTIGO")
+        self.assertEqual(doc["capa_projeto"]["codigo"], "Nome Antigo")
+        self.assertNotIn("rd_reconciliado_em", doc)
+
+    def test_campo_do_sic_e_preservado(self):
+        self._inserir("NEG-1")
+        FakeRdServices.wins_janela = [self._win("NEG-1")]
+
+        self.services.obter_novos_ganhos(days=30)
+
+        self.assertEqual(self._doc("NEG-1")["capa_projeto"]["gerente_projeto"]["nome"], "Gerente Y")
+
+    def test_nenhuma_chamada_extra_ao_rd_station(self):
+        for i in range(5):
+            self._inserir(f"NEG-{i}")
+        FakeRdServices.wins_janela = [self._win(f"NEG-{i}") for i in range(5)]
+
+        self.services.obter_novos_ganhos(days=30)
+
+        # Só a listagem da janela; FakeRdServices não expõe busca individual.
+        self.assertEqual(len(FakeRdServices.chamadas), 1)
+
+
+class TestWebhookDealUpdated(unittest.TestCase):
+    """Cobre processar_webhook_deal_updated (rdstation/services.py) - o
+    núcleo do endpoint POST /rdstation/webhook/deal-updated."""
+
+    def setUp(self):
+        _, self.fake_mongo = _carregar_services_com_stubs()
+        self.rd = sys.modules["app.blueprints.rdstation.services"]
+        self.fake_mongo.db = types.SimpleNamespace(
+            warmup_projetos=FakeCollection(),
+            system_flags=FakeCollection(),
+        )
+
+    def _payload(self, id_="NEG-1", event_name="crm_deal_updated", **deal_overrides):
+        # Formato do webhook: `document` traz o deal inteiro, com `user`
+        # sem email (como GET /deals/{id}).
+        deal = {
+            "id": id_,
+            "name": "Nome Atualizado",
+            "amount_total": 5000,
+            "closed_at": "2026-09-18T13:55:06.542-03:00",
+            "organization": {"id": "org-1", "name": "Cliente X"},
+            "user": {"id": "u1", "name": "Vendedor X"},
+        }
+        deal.update(deal_overrides)
+        return {
+            "event_name": event_name,
+            "event_timestamp": "2026-09-24T12:00:00.000-03:00",
+            "transaction_uuid": "uuid-1",
+            "document": deal,
+        }
+
+    def _inserir(self, negocio_id="NEG-1", etapa="Ganhos", codigo="Nome Antigo"):
+        self.fake_mongo.db.warmup_projetos.insert_one({
+            "negocio_id": negocio_id, "etapa": etapa,
+            "capa_projeto": {
+                "codigo": codigo,
+                "nome_vendedor": "Vendedor X",
+                "email_vendedor": "vendedor@conticonsultoria.com.br",
+                "gerente_projeto": {"nome": "Gerente Y"},
+            },
+            "cliente": {"nome": "Cliente X", "cliente_id": "org-1"},
+            "formacao_preco": {"valor": 5000},
+            "rd_closed_at": "2026-09-18T13:55:06.542-03:00",
+        })
+
+    def _doc(self, negocio_id="NEG-1"):
+        return self.fake_mongo.db.warmup_projetos.find_one({"negocio_id": negocio_id})
+
+    def test_reconcilia_negocio_na_etapa_ganhos(self):
+        self._inserir()
+
+        resultado = self.rd.processar_webhook_deal_updated(self._payload())
+
+        self.assertEqual(resultado, "reconciliado")
+        doc = self._doc()
+        self.assertEqual(doc["capa_projeto"]["codigo"], "Nome Atualizado")
+        self.assertIn("rd_reconciliado_em", doc)
+
+    def test_nao_apaga_email_nem_campos_do_sic(self):
+        self._inserir()
+
+        self.rd.processar_webhook_deal_updated(self._payload())
+
+        doc = self._doc()
+        self.assertEqual(doc["capa_projeto"]["email_vendedor"], "vendedor@conticonsultoria.com.br")
+        self.assertEqual(doc["capa_projeto"]["gerente_projeto"]["nome"], "Gerente Y")
+
+    def test_sem_diferenca_retorna_sem_alteracao_e_nao_escreve(self):
+        self._inserir(codigo="Nome Atualizado")
+
+        resultado = self.rd.processar_webhook_deal_updated(self._payload())
+
+        self.assertEqual(resultado, "sem_alteracao")
+        self.assertNotIn("rd_reconciliado_em", self._doc())
+
+    def test_negocio_fora_da_etapa_ganhos_e_ignorado(self):
+        self._inserir(etapa="Warmup Comercial")
+
+        resultado = self.rd.processar_webhook_deal_updated(self._payload())
+
+        self.assertEqual(resultado, "ignorado")
+        self.assertEqual(self._doc()["capa_projeto"]["codigo"], "Nome Antigo")
+
+    def test_negocio_arquivado_e_ignorado(self):
+        self._inserir(etapa="Arquivado")
+
+        resultado = self.rd.processar_webhook_deal_updated(self._payload())
+
+        self.assertEqual(resultado, "ignorado")
+        self.assertEqual(self._doc()["capa_projeto"]["codigo"], "Nome Antigo")
+
+    def test_negocio_nao_materializado_e_ignorado_e_nao_cria_documento(self):
+        resultado = self.rd.processar_webhook_deal_updated(self._payload("NEG-DESCONHECIDO"))
+
+        self.assertEqual(resultado, "ignorado")
+        self.assertEqual(self.fake_mongo.db.warmup_projetos._docs, [])
+
+    def test_outro_tipo_de_evento_e_ignorado(self):
+        self._inserir()
+
+        resultado = self.rd.processar_webhook_deal_updated(self._payload(event_name="crm_deal_created"))
+
+        self.assertEqual(resultado, "ignorado")
+        self.assertEqual(self._doc()["capa_projeto"]["codigo"], "Nome Antigo")
+
+    def test_payloads_malformados_sao_ignorados(self):
+        for payload in (None, {}, {"event_name": "crm_deal_updated"},
+                        {"event_name": "crm_deal_updated", "document": None},
+                        {"event_name": "crm_deal_updated", "document": {"name": "sem id"}},
+                        {"event_name": "crm_deal_updated", "document": "texto"}):
+            self.assertEqual(self.rd.processar_webhook_deal_updated(payload), "ignorado", payload)
 
 
 if __name__ == "__main__":
