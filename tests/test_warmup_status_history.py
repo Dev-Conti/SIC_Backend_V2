@@ -78,7 +78,17 @@ class FakeWarmupProjetosCollection:
             return FakeUpdateResult(0)
 
         set_fields = update.get("$set", {})
-        self._doc.update(set_fields)
+        for caminho, valor in set_fields.items():
+            # Aplica caminhos em dot-notation ("secao.chave") como o Mongo.
+            alvo = self._doc
+            *intermediarios, ultimo = caminho.split(".")
+            for parte in intermediarios:
+                if not isinstance(alvo.get(parte), dict):
+                    if parte in alvo:
+                        raise ValueError(f"Cannot create field in element {{{parte}: {alvo[parte]!r}}}")
+                    alvo[parte] = {}
+                alvo = alvo[parte]
+            alvo[ultimo] = copy.deepcopy(valor)
 
         push = update.get("$push")
         if push:
