@@ -1,5 +1,5 @@
 SENDER = "warmup@conticonsultoria.com.br"
-FIXED_RECIPIENT_FINANCEIRO = "junia.mendes@conticonsultoria.com.br"
+FIXED_RECIPIENT_FINANCEIRO = "faturamento@conticonsultoria.com.br"
 
 NOTIFICATION_CATALOG = {
     "warmup_novo_comercial": {
